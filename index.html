@@ -523,6 +523,7 @@
         }, observerOptions);
 
         document.querySelectorAll('.section-header, .project-card, .impact-card, .skill-category, .timeline-item, .education-card').forEach(el => {
+            el.classList.add('fade-in');
             observer.observe(el);
         });
 
