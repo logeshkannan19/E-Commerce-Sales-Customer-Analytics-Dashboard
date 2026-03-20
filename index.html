@@ -84,6 +84,12 @@
     </script>
 </head>
 <body>
+    <div class="morphing-bg">
+        <div class="morphing-shape morphing-shape-1"></div>
+        <div class="morphing-shape morphing-shape-2"></div>
+        <div class="morphing-shape morphing-shape-3"></div>
+    </div>
+    <div class="background-grid"></div>
     <div class="page-loader" id="pageLoader">
         <div class="loader-logo">LK</div>
         <div class="loader-bar">
@@ -2141,6 +2147,149 @@
             }
             
             lastScrollTop = scrollTop;
+        });
+        
+        document.querySelectorAll('.project-card, .impact-card, .opensource-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 15;
+                const rotateY = (centerX - x) / 15;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                card.style.transition = 'transform 0.1s ease-out';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                card.style.transition = 'transform 0.5s ease';
+            });
+        });
+        
+        const hero = document.querySelector('.hero');
+        let particleTrail = [];
+        
+        document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth < 768) return;
+            
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                left: ${e.clientX}px;
+                top: ${e.clientY}px;
+                width: 6px;
+                height: 6px;
+                background: var(--gradient-1);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                opacity: 0.8;
+                transform: translate(-50%, -50%);
+                animation: particleFade 0.8s ease-out forwards;
+            `;
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 800);
+        });
+        
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `
+            @keyframes particleFade {
+                0% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0) translateY(-30px); }
+            }
+        `;
+        document.head.appendChild(particleStyle);
+        
+        const tiltElements = document.querySelectorAll('.tech-category, .skill-category');
+        tiltElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                el.style.setProperty('--mouse-x', `${xPercent}%`);
+                el.style.setProperty('--mouse-y', `${yPercent}%`);
+            });
+        });
+        
+        document.querySelectorAll('.context-tag').forEach((tag, index) => {
+            tag.style.animationDelay = `${0.2 + index * 0.1}s`;
+            tag.style.opacity = '0';
+            tag.style.animation = `fadeInUp 0.5s ease forwards`;
+        });
+        
+        const fadeTagStyle = document.createElement('style');
+        fadeTagStyle.textContent = `
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(fadeTagStyle);
+        
+        let lastMoveTime = 0;
+        const cursorTrail = document.createElement('div');
+        cursorTrail.style.cssText = `
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+        `;
+        document.body.appendChild(cursorTrail);
+        
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastMoveTime > 50) {
+                cursorTrail.style.left = `${e.clientX - 10}px`;
+                cursorTrail.style.top = `${e.clientY - 10}px`;
+                lastMoveTime = now;
+            }
+        });
+        
+        document.querySelectorAll('a, button, .btn').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorTrail.style.width = '40px';
+                cursorTrail.style.height = '40px';
+                cursorTrail.style.left = `${e.clientX - 20}px`;
+                cursorTrail.style.top = `${e.clientY - 20}px`;
+                cursorTrail.style.borderColor = '#667eea';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorTrail.style.width = '20px';
+                cursorTrail.style.height = '20px';
+                cursorTrail.style.borderColor = 'rgba(102, 126, 234, 0.5)';
+            });
+        });
+        
+        const statsCounter = document.querySelectorAll('.stat-num');
+        statsCounter.forEach(stat => {
+            const target = stat.textContent;
+            const numMatch = target.match(/[\d.]+/);
+            if (numMatch) {
+                const num = parseFloat(numMatch[0]);
+                const suffix = target.replace(numMatch[0], '');
+                let current = 0;
+                const increment = num / 30;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= num) {
+                        current = num;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = (Number.isInteger(num) ? Math.floor(current) : current.toFixed(1)) + suffix;
+                }, 50);
+            }
         });
     </script>
 </body>
