@@ -245,13 +245,11 @@ body {
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.tech-category,
 .skill-category {
     position: relative;
     overflow: hidden;
 }
 
-.tech-category::before,
 .skill-category::before {
     content: '';
     position: absolute;
@@ -269,7 +267,6 @@ body {
     pointer-events: none;
 }
 
-.tech-category:hover::before,
 .skill-category:hover::before {
     opacity: 1;
 }
@@ -2198,167 +2195,6 @@ section {
     background: var(--gradient-1);
     border-color: transparent;
     color: white;
-}
-
-.tech-stack {
-    border-top: 1px solid var(--border);
-}
-
-.tech-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-@media (max-width: 1024px) {
-    .tech-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 640px) {
-    .tech-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.tech-category {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    transition: all 0.3s ease;
-}
-
-.tech-category:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    border-color: #667eea;
-}
-
-.tech-category-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--border);
-}
-
-.tech-category-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--gradient-1);
-    border-radius: 10px;
-    color: white;
-}
-
-.tech-category-title {
-    font-family: var(--font-display);
-    font-size: var(--text-base);
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.tech-items {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.tech-item {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px 14px;
-    background: var(--bg-secondary);
-    border-radius: 10px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-}
-
-.tech-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    background: var(--bg-tertiary);
-}
-
-.tech-item-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.tech-badge {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: white;
-    flex-shrink: 0;
-}
-
-.tech-badge.js { background: linear-gradient(135deg, #f7df1e, #d4b800); color: #000; }
-.tech-badge.ts { background: linear-gradient(135deg, #3178c6, #235a97); }
-.tech-badge.py { background: linear-gradient(135deg, #3776ab, #ffd43b); }
-.tech-badge.go { background: linear-gradient(135deg, #00add8, #5dc9e2); }
-.tech-badge.react { background: linear-gradient(135deg, #61dafb, #21a8d8); color: #000; }
-.tech-badge.next { background: linear-gradient(135deg, #ffffff, #e0e0e0); color: #000; }
-.tech-badge.vue { background: linear-gradient(135deg, #42b883, #35495e); }
-.tech-badge.html { background: linear-gradient(135deg, #e34f26, #f16529); }
-.tech-badge.node { background: linear-gradient(135deg, #68a063, #3c873a); }
-.tech-badge.express { background: linear-gradient(135deg, #323232, #6d6d6d); }
-.tech-badge.fastapi { background: linear-gradient(135deg, #009688, #00bfa5); }
-.tech-badge.graph { background: linear-gradient(135deg, #e10098, #ff0080); }
-.tech-badge.postgres { background: linear-gradient(135deg, #336791, #0064a5); }
-.tech-badge.mongo { background: linear-gradient(135deg, #47a248, #13aa52); }
-.tech-badge.redis { background: linear-gradient(135deg, #dc382d, #a82a27); }
-.tech-badge.sql { background: linear-gradient(135deg, #00758f, #f29111); }
-.tech-badge.aws { background: linear-gradient(135deg, #ff9900, #ffb61d); color: #000; }
-.tech-badge.docker { background: linear-gradient(135deg, #2496ed, #1d63ed); }
-.tech-badge.k8s { background: linear-gradient(135deg, #326ce5, #5e81fe); }
-.tech-badge.cicd { background: linear-gradient(135deg, #fc6d26, #fca326); }
-.tech-badge.tf { background: linear-gradient(135deg, #ff6f00, #ff8c00); }
-.tech-badge.pytorch { background: linear-gradient(135deg, #ee4c2c, #ee4c2c); }
-.tech-badge.pandas { background: linear-gradient(135deg, #130754, #1e4d8c); }
-.tech-badge.powerbi { background: linear-gradient(135deg, #f2c811, #ffd83d); color: #000; }
-
-.tech-name {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--text-primary);
-    transition: color 0.3s ease;
-}
-
-.tech-item:hover .tech-name {
-    color: var(--text-primary);
-}
-
-.tech-level {
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.tech-level-fill {
-    height: 100%;
-    width: 0;
-    border-radius: 2px;
-    background: var(--gradient-1);
-    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.tech-item.animate-in .tech-level-fill,
-.skill-category.animate-in .tech-level-fill {
-    width: var(--level);
 }
 
 .skills {
