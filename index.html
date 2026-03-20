@@ -13,7 +13,9 @@
 </head>
 <body>
     <div class="page-loader" id="pageLoader">
-        <div class="loader-bar"></div>
+        <div class="loader-content">
+            <span class="loader-name">Logesh Kannan</span>
+        </div>
     </div>
     <div class="progress-bar" id="progressBar"></div>
     <div class="cursor-dot" id="cursorDot"></div>
@@ -646,8 +648,8 @@
             setTimeout(() => {
                 const loader = document.getElementById('pageLoader');
                 loader.classList.add('hidden');
-                setTimeout(() => loader.remove(), 300);
-            }, 800);
+                setTimeout(() => loader.remove(), 500);
+            }, 400);
         });
 
         const themeToggle = document.getElementById('themeToggle');

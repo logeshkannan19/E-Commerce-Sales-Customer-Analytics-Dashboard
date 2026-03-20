@@ -91,30 +91,36 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: var(--bg-secondary);
+    bottom: 0;
+    background: #000000;
     z-index: 9999;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
 }
 
-.loader-bar {
-    height: 100%;
-    background: var(--text-primary);
-    animation: loaderProgress 0.8s ease forwards;
+.loader-content {
+    text-align: center;
 }
 
-@keyframes loaderProgress {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
+.loader-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    animation: loaderPulse 1.5s ease infinite;
+}
+
+@keyframes loaderPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
 }
 
 .page-loader.hidden {
     opacity: 0;
-    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .progress-bar {
@@ -514,8 +520,8 @@ p {
 
 .fade-up {
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeUp 0.8s ease forwards;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeUp {
@@ -525,10 +531,10 @@ p {
     }
 }
 
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-.delay-4 { animation-delay: 0.8s; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
 
 .scroll-reveal {
     opacity: 0;
