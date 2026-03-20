@@ -19,6 +19,12 @@
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-ring" id="cursorRing"></div>
     <canvas id="particleCanvas"></canvas>
+    <div class="waves-container">
+        <svg class="waves" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="wave wave1" d="M0,160L48,170.7C96,181,192,203,288,197.3C384,192,480,160,576,165.3C672,171,768,213,864,218.7C960,224,1056,192,1152,165.3C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <path class="wave wave2" d="M0,96L48,117.3C96,139,192,181,288,202.7C384,224,480,224,576,213.3C672,203,768,181,864,165.3C960,149,1056,139,1152,149.3C1248,160,1344,192,1392,208L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
     <nav class="nav">
         <a href="#" class="nav-logo">LK</a>
         <div class="nav-links">
@@ -40,7 +46,7 @@
                 <div class="hero-meta">
                     <span class="hero-location">Dubai, UAE</span>
                 </div>
-                <h1 class="hero-name">Logesh Kannan</h1>
+                <h1 class="hero-name glitch">Logesh Kannan</h1>
                 <p class="hero-title">Full-Stack Engineer & Entrepreneur</p>
                 <p class="hero-description">
                     Building scalable distributed systems and data-driven applications. Specialized in backend architecture, real-time systems, and performance optimization.
@@ -769,8 +775,8 @@
     <script>
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-        const particleCount = 50;
+        let fireflies = [];
+        const fireflyCount = 20;
         
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -779,41 +785,51 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
-        class Particle {
+        class Firefly {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.3 - 0.15;
-                this.speedY = Math.random() * 0.3 - 0.15;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random();
+                this.opacitySpeed = (Math.random() - 0.5) * 0.02;
+                this.hue = Math.random() * 60 + 30;
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
+                this.opacity += this.opacitySpeed;
+                if (this.opacity >= 1 || this.opacity <= 0) {
+                    this.opacitySpeed *= -1;
+                }
                 if (this.x > canvas.width) this.x = 0;
                 if (this.x < 0) this.x = canvas.width;
                 if (this.y > canvas.height) this.y = 0;
                 if (this.y < 0) this.y = canvas.height;
             }
             draw() {
-                ctx.fillStyle = 'rgba(100, 100, 100, 0.5)';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, ${this.opacity * 0.6})`;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = `hsla(${this.hue}, 100%, 70%, ${this.opacity})`;
                 ctx.fill();
+                ctx.shadowBlur = 0;
             }
         }
         
         function init() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
+            for (let i = 0; i < fireflyCount; i++) {
+                fireflies.push(new Firefly());
             }
         }
         
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+            fireflies.forEach(firefly => {
+                firefly.update();
+                firefly.draw();
             });
             requestAnimationFrame(animate);
         }
@@ -839,6 +855,52 @@
         function filterProjects(query) {
             const projects = document.querySelectorAll('.project-card');
             const lowerQuery = query.toLowerCase();
+            
+            if (lowerQuery === 'help') {
+                console.log('%c=== PORTFOLIO COMMANDS ===', 'color: #1a1a1a; font-weight: bold; font-size: 14px;');
+                console.log('%cdark%c - Toggle dark mode', 'color: #1a1a1a; font-weight: bold;', 'color: #666;');
+                console.log('%cabout%c - Show about info', 'color: #1a1a1a; font-weight: bold;', 'color: #666;');
+                console.log('%cskills%c - List all skills', 'color: #1a1a1a; font-weight: bold;', 'color: #666;');
+                console.log('%ccontact%c - Show contact info', 'color: #1a1a1a; font-weight: bold;', 'color: #666;');
+                console.log('%cgithub%c - Open GitHub', 'color: #1a1a1a; font-weight: bold;', 'color: #666;');
+                console.log('%cresume%c - Download resume', 'color: #1a1a1a; font-weight: bold;', 'color: #666;');
+                return;
+            }
+            
+            if (lowerQuery === 'about') {
+                alert('Logesh Kannan\nFull-Stack Engineer & Entrepreneur\nBuilding scalable systems since 2024');
+                return;
+            }
+            
+            if (lowerQuery === 'contact') {
+                window.location.href = '#contact';
+                return;
+            }
+            
+            if (lowerQuery === 'github') {
+                window.open('https://github.com/logeshkannan19', '_blank');
+                return;
+            }
+            
+            if (lowerQuery === 'dark') {
+                toggleTheme();
+                return;
+            }
+            
+            if (lowerQuery === 'resume') {
+                alert('Resume download coming soon!');
+                return;
+            }
+            
+            if (lowerQuery === 'skills') {
+                console.log('%c=== SKILLS ===', 'color: #1a1a1a; font-weight: bold;');
+                console.log('Backend: Node.js, Express, TypeScript, Redis');
+                console.log('Frontend: React, Next.js, JavaScript');
+                console.log('Cloud: AWS, Docker, Kubernetes');
+                console.log('Database: PostgreSQL, MongoDB, SQL');
+                console.log('ML: Python, TensorFlow, Power BI');
+                return;
+            }
             
             projects.forEach(project => {
                 const title = project.querySelector('.project-title').textContent.toLowerCase();
