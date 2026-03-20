@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maya — Product Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-progress">
+                <div class="loading-bar" id="loading-bar"></div>
+            </div>
+            <p class="loading-text">Loading frames: 0%</p>
+        </div>
+    </div>
+
+    <header class="header">
+        <a href="#" class="logo">Maya</a>
+        <a href="mailto:hello@maya.design" class="contact-btn">Get in touch</a>
+    </header>
+
+    <main>
+        <section class="hero" id="hero">
+            <div class="hero-canvas-container">
+                <canvas id="hero-canvas"></canvas>
+            </div>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="hero-subtitle">Hey, I'm a</p>
+                    <h1 class="hero-title">Product Designer</h1>
+                </div>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <span class="service-number">01</span>
+                        <span class="service-name">UX Research</span>
+                    </div>
+                    <div class="service-item">
+                        <span class="service-number">02</span>
+                        <span class="service-name">Visual Design</span>
+                    </div>
+                    <div class="service-item">
+                        <span class="service-number">03</span>
+                        <span class="service-name">Prototyping</span>
+                    </div>
+                    <div class="service-item">
+                        <span class="service-number">04</span>
+                        <span class="service-name">Design Systems</span>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Scroll to explore</span>
+                <div class="scroll-arrow">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5v14M19 12l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="work-section" id="work">
+            <div class="work-header">
+                <span class="work-label">Selected Work</span>
+                <span class="work-count">04 Projects</span>
+            </div>
+            <div class="work-grid">
+                <article class="project-card" data-project="1">
+                    <div class="project-image-wrapper">
+                        <img src="assets/images/project-1.jpg" alt="Transcendence" class="project-image">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Transcendence</h3>
+                        <span class="project-category">Creative Direction</span>
+                    </div>
+                </article>
+                <article class="project-card" data-project="2">
+                    <div class="project-image-wrapper">
+                        <img src="assets/images/project-2.jpg" alt="Notice Everything" class="project-image">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Notice Everything</h3>
+                        <span class="project-category">Brand Identity</span>
+                    </div>
+                </article>
+                <article class="project-card" data-project="3">
+                    <div class="project-image-wrapper">
+                        <img src="assets/images/project-3.jpg" alt="Saint Petersburg" class="project-image">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Saint Petersburg</h3>
+                        <span class="project-category">Editorial Design</span>
+                    </div>
+                </article>
+                <article class="project-card" data-project="4">
+                    <div class="project-image-wrapper">
+                        <img src="assets/images/project-4.jpg" alt="Bridging the Gap" class="project-image">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Bridging the Gap</h3>
+                        <span class="project-category">Typography</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="about-content">
+                <h2 class="about-title">About</h2>
+                <p class="about-text">Maya is a product designer based in New York, crafting digital experiences that balance aesthetics with functionality. With over 8 years of experience working with startups and Fortune 500 companies, she brings a unique perspective to every project.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-cta">
+                    <h3 class="footer-heading">Let's create something together</h3>
+                    <a href="mailto:hello@maya.design" class="footer-email">hello@maya.design</a>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">LinkedIn</a>
+                    <a href="#" class="footer-link">Dribbble</a>
+                    <a href="#" class="footer-link">Instagram</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="copyright">© 2026 Maya. All rights reserved.</span>
+            </div>
+        </footer>
+    </main>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.4/index.js"
+        }
+    }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
