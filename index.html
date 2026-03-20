@@ -125,13 +125,13 @@
                 <h2 class="section-title">Production systems</h2>
             </div>
             <div class="projects-grid">
-                <article class="project-card">
+                <article class="project-card" data-project="1" data-title="Real-Time Communication Infrastructure" data-problem="Organizations need scalable real-time communication systems that handle thousands of concurrent users with sub-100ms latency." data-solution="Event-driven architecture with WebSocket connections, Redis pub/sub for message brokering, horizontal scaling via load balancers, and heartbeat mechanisms for fault tolerance." data-tech="Node.js, TypeScript, Redis, AWS EC2, WebSockets" data-impact="<100ms message latency, 5K+ concurrent users, 99.9% uptime" data-url="https://github.com/logeshkannan19/realtime-system">
                     <div class="project-header">
                         <span class="project-number">01</span>
                         <div class="project-links">
-                            <a href="https://github.com/logeshkannan19/realtime-system" target="_blank" aria-label="View Code">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            </a>
+                            <span class="project-expand">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                            </span>
                         </div>
                     </div>
                     <h3 class="project-title">Real-Time Communication Infrastructure</h3>
@@ -141,155 +141,84 @@
                             <p>Organizations need scalable real-time communication systems that handle thousands of concurrent users with sub-100ms latency.</p>
                         </div>
                         <div class="project-section">
-                            <h4>System Design</h4>
-                            <p>Event-driven architecture with WebSocket connections, Redis pub/sub for message brokering, horizontal scaling via load balancers, and heartbeat mechanisms for fault tolerance.</p>
-                        </div>
-                        <div class="project-section">
                             <h4>Tech Stack</h4>
                             <div class="tech-tags">
                                 <span>Node.js</span>
                                 <span>TypeScript</span>
                                 <span>Redis</span>
-                                <span>AWS EC2</span>
                                 <span>WebSockets</span>
-                            </div>
-                        </div>
-                        <div class="project-section">
-                            <h4>Impact</h4>
-                            <div class="impact-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">&lt;100ms</span>
-                                    <span class="metric-label">Message latency</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">5K+</span>
-                                    <span class="metric-label">Concurrent users</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">99.9%</span>
-                                    <span class="metric-label">Uptime</span>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </article>
 
-                <article class="project-card">
+                <article class="project-card" data-project="2" data-title="Customer Churn Prediction Engine" data-problem="Telecom operator losing 35%+ revenue to customer churn in short-tenure segments. Manual analysis couldn't enable proactive retention." data-solution="End-to-end ML pipeline with feature engineering, CNN-based pattern recognition, and real-time Power BI dashboards for KPI monitoring." data-tech="Python, TensorFlow, Scikit-learn, Power BI, SQL" data-impact="7K+ records analyzed, 35% churn source identified, 10+ KPIs tracked" data-url="https://github.com/logeshkannan19/churn_prediction">
                     <div class="project-header">
                         <span class="project-number">02</span>
                         <div class="project-links">
-                            <a href="https://github.com/logeshkannan19/churn_prediction" target="_blank" aria-label="View Code">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            </a>
+                            <span class="project-expand">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                            </span>
                         </div>
                     </div>
                     <h3 class="project-title">Customer Churn Prediction Engine</h3>
                     <div class="project-sections">
                         <div class="project-section">
                             <h4>Problem</h4>
-                            <p>Telecom operator losing 35%+ revenue to customer churn in short-tenure segments. Manual analysis couldn't enable proactive retention.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>System Design</h4>
-                            <p>End-to-end ML pipeline with feature engineering, CNN-based pattern recognition, and real-time Power BI dashboards for KPI monitoring.</p>
+                            <p>Telecom operator losing 35%+ revenue to customer churn in short-tenure segments.</p>
                         </div>
                         <div class="project-section">
                             <h4>Tech Stack</h4>
                             <div class="tech-tags">
                                 <span>Python</span>
                                 <span>TensorFlow</span>
-                                <span>Scikit-learn</span>
                                 <span>Power BI</span>
-                                <span>SQL</span>
-                            </div>
-                        </div>
-                        <div class="project-section">
-                            <h4>Impact</h4>
-                            <div class="impact-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">7K+</span>
-                                    <span class="metric-label">Records analyzed</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">35%</span>
-                                    <span class="metric-label">Churn source ID</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">10+</span>
-                                    <span class="metric-label">KPIs tracked</span>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </article>
 
-                <article class="project-card">
+                <article class="project-card" data-project="3" data-title="Veloxa — Hyperlocal Delivery Platform" data-problem="Fashion retail suffers from multi-day delivery. Customers expect instant gratification. Need a system that promises and delivers within 30 minutes." data-solution="Full-stack platform with real-time inventory synchronization, dynamic route optimization for last-mile delivery, and predictive stock management." data-tech="Node.js, React, MongoDB, Redis, AWS" data-impact="30-minute average delivery, real-time inventory sync, end-to-end platform" data-url="https://github.com/logeshkannan19/Veloxa">
                     <div class="project-header">
                         <span class="project-number">03</span>
                         <div class="project-links">
-                            <a href="https://github.com/logeshkannan19/Veloxa" target="_blank" aria-label="View Code">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            </a>
+                            <span class="project-expand">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                            </span>
                         </div>
                     </div>
                     <h3 class="project-title">Veloxa — Hyperlocal Delivery Platform</h3>
                     <div class="project-sections">
                         <div class="project-section">
                             <h4>Problem</h4>
-                            <p>Fashion retail suffers from multi-day delivery. Customers expect instant gratification. Need a system that promises and delivers within 30 minutes.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>System Design</h4>
-                            <p>Full-stack platform with real-time inventory synchronization, dynamic route optimization for last-mile delivery, and predictive stock management.</p>
+                            <p>Fashion retail suffers from multi-day delivery. Need 30-minute fulfillment.</p>
                         </div>
                         <div class="project-section">
                             <h4>Tech Stack</h4>
                             <div class="tech-tags">
                                 <span>Node.js</span>
                                 <span>React</span>
-                                <span>MongoDB</span>
                                 <span>Redis</span>
                                 <span>AWS</span>
-                            </div>
-                        </div>
-                        <div class="project-section">
-                            <h4>Impact</h4>
-                            <div class="impact-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">30min</span>
-                                    <span class="metric-label">Avg delivery</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Real-time</span>
-                                    <span class="metric-label">Inventory sync</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">E2E</span>
-                                    <span class="metric-label">Platform</span>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </article>
 
-                <article class="project-card">
+                <article class="project-card" data-project="4" data-title="Automated Toll Management System" data-problem="Manual toll operations face bottlenecks during peak hours. Vehicle identification and billing require automation." data-solution="OCR-based vehicle identification with TensorFlow for license plate recognition, REST API backend, and real-time monitoring dashboard." data-tech="Python, TensorFlow, OpenCV, PostgreSQL, Flutter" data-impact="~100% accuracy, real-time processing, automated billing" data-url="https://github.com/logeshkannan19/spendiq-ai">
                     <div class="project-header">
                         <span class="project-number">04</span>
                         <div class="project-links">
-                            <a href="https://github.com/logeshkannan19/spendiq-ai" target="_blank" aria-label="View Code">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            </a>
+                            <span class="project-expand">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                            </span>
                         </div>
                     </div>
                     <h3 class="project-title">Automated Toll Management System</h3>
                     <div class="project-sections">
                         <div class="project-section">
                             <h4>Problem</h4>
-                            <p>Manual toll operations face bottlenecks during peak hours. Vehicle identification and billing require automation to reduce wait times.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>System Design</h4>
-                            <p>OCR-based vehicle identification with TensorFlow for license plate recognition, REST API backend, and real-time monitoring dashboard.</p>
+                            <p>Manual toll operations face bottlenecks. Need automated vehicle identification.</p>
                         </div>
                         <div class="project-section">
                             <h4>Tech Stack</h4>
@@ -297,25 +226,6 @@
                                 <span>Python</span>
                                 <span>TensorFlow</span>
                                 <span>OpenCV</span>
-                                <span>PostgreSQL</span>
-                                <span>Flutter</span>
-                            </div>
-                        </div>
-                        <div class="project-section">
-                            <h4>Impact</h4>
-                            <div class="impact-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">~100%</span>
-                                    <span class="metric-label">Accuracy</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Real-time</span>
-                                    <span class="metric-label">Processing</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Auto</span>
-                                    <span class="metric-label">Billing</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -694,6 +604,23 @@
         </section>
     </main>
 
+    <div class="modal" id="projectModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="modal-header">
+                <span class="modal-number" id="modalNumber"></span>
+                <h2 class="modal-title" id="modalTitle"></h2>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" id="modalGithub" target="_blank">View Code</a>
+            </div>
+        </div>
+    </div>
+
     <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
     </a>
@@ -862,7 +789,7 @@
     });
 
     const cookieBanner = document.getElementById('cookieBanner');
-    const acceptBtn = document.getElementById('acceptCookies');
+        const acceptBtn = document.getElementById('acceptCookies');
     
     if (!localStorage.getItem('cookiesAccepted')) {
         setTimeout(() => {
@@ -876,6 +803,62 @@
             cookieBanner.classList.remove('visible');
         });
     }
+
+    const modal = document.getElementById('projectModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const modalNumber = document.getElementById('modalNumber');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const modalGithub = document.getElementById('modalGithub');
+
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.project-links')) return;
+            
+            const number = card.dataset.project;
+            const title = card.dataset.title;
+            const problem = card.dataset.problem;
+            const solution = card.dataset.solution;
+            const tech = card.dataset.tech;
+            const impact = card.dataset.impact;
+            const url = card.dataset.url;
+
+            modalNumber.textContent = '0' + number;
+            modalTitle.textContent = title;
+            modalGithub.href = url;
+
+            const techItems = tech.split(', ').map(t => `<span>${t}</span>`).join('');
+
+            modalBody.innerHTML = `
+                <h4>Problem</h4>
+                <p>${problem}</p>
+                <h4>Solution</h4>
+                <p>${solution}</p>
+                <h4>Tech Stack</h4>
+                <div class="tech-tags">${techItems}</div>
+                <h4>Impact</h4>
+                <p>${impact}</p>
+            `;
+
+            modal.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    function closeModal() {
+        modal.classList.remove('visible');
+        document.body.style.overflow = '';
+    }
+
+    modalOverlay.addEventListener('click', closeModal);
+    modalClose.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('visible')) {
+            closeModal();
+        }
+    });
     </script>
     <script>
         const cursorDot = document.getElementById('cursorDot');
