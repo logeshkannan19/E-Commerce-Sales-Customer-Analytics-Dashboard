@@ -117,6 +117,57 @@ body {
     transition: opacity 0.3s ease;
 }
 
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--text-primary);
+    z-index: 10000;
+    width: 0%;
+    transition: width 0.1s linear;
+    opacity: 0.6;
+}
+
+.cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--text-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10001;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, opacity 0.2s ease;
+    opacity: 0;
+}
+
+.cursor-ring {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--text-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+    opacity: 0;
+}
+
+body:has(.cursor-dot:hover),
+a:hover ~ .cursor-dot,
+a:hover ~ .cursor-ring {
+    opacity: 1;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+}
+
 a {
     text-decoration: none;
     color: inherit;
