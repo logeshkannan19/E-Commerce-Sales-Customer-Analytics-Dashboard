@@ -13,7 +13,12 @@
 </head>
 <body>
     <div class="page-loader" id="pageLoader">
-        <div class="loader-bar"></div>
+        <div class="skeleton-container">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-btn"></div>
+        </div>
     </div>
     <div class="progress-bar" id="progressBar"></div>
     <div class="cursor-dot" id="cursorDot"></div>
@@ -701,6 +706,16 @@
         </div>
     </footer>
 
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <p>We use cookies to improve your experience. By continuing, you agree to our use of cookies.</p>
+            <div class="cookie-actions">
+                <button class="btn btn-primary btn-sm" id="acceptCookies">Accept</button>
+                <a href="#" class="cookie-link">Learn more</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -838,13 +853,29 @@
             const progress = (scrollTop / docHeight) * 100;
             progressBar.style.width = progress + '%';
             
-            const backToTop = document.getElementById('backToTop');
-            if (scrollTop > 500) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
+        const backToTop = document.getElementById('backToTop');
+        if (scrollTop > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptBtn = document.getElementById('acceptCookies');
+    
+    if (!localStorage.getItem('cookiesAccepted')) {
+        setTimeout(() => {
+            cookieBanner.classList.add('visible');
+        }, 2000);
+    }
+    
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.classList.remove('visible');
         });
+    }
     </script>
     <script>
         const cursorDot = document.getElementById('cursorDot');
