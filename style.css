@@ -1446,76 +1446,6 @@ section {
     color: var(--text-primary);
 }
 
-.subscribe-form {
-    margin-top: 20px;
-    padding: 20px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-}
-
-.subscribe-title {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.subscribe-desc {
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    margin-bottom: 12px;
-}
-
-.subscribe-input-group {
-    display: flex;
-    gap: 8px;
-}
-
-.subscribe-input-group input {
-    flex: 1;
-    padding: 10px 14px;
-    font-size: var(--text-sm);
-    font-family: var(--font-body);
-    background: var(--bg-primary);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text-primary);
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.subscribe-input-group input:focus {
-    border-color: var(--text-muted);
-}
-
-.subscribe-input-group input::placeholder {
-    color: var(--text-muted);
-}
-
-.subscribe-btn {
-    padding: 10px 16px;
-    font-size: var(--text-sm);
-    font-weight: 500;
-    font-family: var(--font-body);
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-}
-
-.subscribe-btn:hover {
-    opacity: 0.9;
-}
-
-.subscribe-success {
-    font-size: var(--text-sm);
-    color: #22c55e;
-    font-weight: 500;
-    padding: 10px 0;
-}
-
 .contact-heading {
     font-family: var(--font-display);
     font-size: var(--text-2xl);
@@ -2143,41 +2073,6 @@ section {
     .cookie-actions {
         justify-content: center;
     }
-}
-
-@media (max-width: 480px) {
-    .hero-name {
-        font-size: 1.75rem;
-    }
-    
-    .stat-card {
-        padding: 14px;
-    }
-    
-    .stat-value {
-        font-size: 1.125rem;
-    }
-    
-    .stat-label {
-        font-size: 0.625rem;
-    }
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
 }
 
 @media (hover: none) and (pointer: coarse) {
