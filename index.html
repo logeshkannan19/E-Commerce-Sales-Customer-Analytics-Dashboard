@@ -18,6 +18,7 @@
     <div class="progress-bar" id="progressBar"></div>
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-ring" id="cursorRing"></div>
+    <canvas id="particleCanvas"></canvas>
     <nav class="nav">
         <a href="#" class="nav-logo">LK</a>
         <div class="nav-links">
@@ -617,6 +618,10 @@
                             +91 62629 21292
                         </a>
                     </div>
+                    <div class="qr-section">
+                        <p class="qr-label">Scan to visit</p>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://maya-portfolio-iota.vercel.app" alt="QR Code" class="qr-code">
+                    </div>
                 </div>
             </div>
         </section>
@@ -760,6 +765,61 @@
                 cursorRing.style.opacity = '0.5';
             });
         });
+    </script>
+    <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 50;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.3 - 0.15;
+                this.speedY = Math.random() * 0.3 - 0.15;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(100, 100, 100, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        
+        init();
+        animate();
     </script>
     <script>
         function filterProjects(query) {

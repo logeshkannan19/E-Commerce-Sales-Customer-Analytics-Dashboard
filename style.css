@@ -163,7 +163,8 @@ a:hover ~ .cursor-ring {
 
 @media (hover: none) and (pointer: coarse) {
     .cursor-dot,
-    .cursor-ring {
+    .cursor-ring,
+    #particleCanvas {
         display: none;
     }
 }
@@ -1003,6 +1004,31 @@ section {
     border: 1px solid var(--border);
     border-radius: 4px;
     color: var(--text-muted);
+}
+
+.qr-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.qr-label {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.qr-code {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+    .qr-section {
+        display: none;
+    }
 }
 
 .footer {
