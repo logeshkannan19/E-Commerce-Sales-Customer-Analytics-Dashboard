@@ -1860,6 +1860,11 @@ section {
     justify-content: space-between;
     font-size: var(--text-sm);
     color: var(--text-muted);
+    align-items: center;
+}
+
+.footer-time {
+    font-weight: 500;
 }
 
 @media (max-width: 1200px) {
