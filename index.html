@@ -694,7 +694,7 @@
             }
         });
 
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -80px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -703,9 +703,24 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.section-header, .project-card, .impact-card, .skill-category, .timeline-item, .education-card').forEach(el => {
+        document.querySelectorAll('.section-header, .project-card, .impact-card, .skill-category, .timeline-item, .education-card, .cert-item').forEach((el, index) => {
+            el.classList.add('fade-in');
+            el.style.transitionDelay = `${(index % 4) * 0.1}s`;
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.about-text, .about-stats, .contact-left, .contact-right').forEach(el => {
             el.classList.add('fade-in');
             observer.observe(el);
+        });
+
+        document.querySelectorAll('.projects-grid .project-card, .impact-grid .impact-card, .skills-grid .skill-category, .education-grid .education-card').forEach((el, index) => {
+            const parent = el.closest('.projects-grid, .impact-grid, .skills-grid, .education-grid');
+            if (parent) {
+                const siblings = Array.from(parent.children);
+                const siblingIndex = siblings.indexOf(el);
+                el.style.transitionDelay = `${siblingIndex * 0.1}s`;
+            }
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
