@@ -581,6 +581,32 @@ small, .text-sm {
     50% { transform: translateY(6px); }
 }
 
+.hero-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 48px;
+    max-width: 480px;
+}
+
+.skill-tag {
+    padding: 8px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.skill-tag:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--text-muted);
+    color: var(--text-primary);
+}
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -1846,6 +1872,16 @@ section {
     .hero {
         padding: 80px 20px 48px;
         min-height: auto;
+    }
+    
+    .hero-skills {
+        margin-top: 32px;
+        gap: 6px;
+    }
+    
+    .skill-tag {
+        padding: 6px 12px;
+        font-size: var(--text-xs);
     }
     
     .hero-badge {
