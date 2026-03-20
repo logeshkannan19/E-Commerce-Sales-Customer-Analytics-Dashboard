@@ -72,6 +72,49 @@ body {
     line-height: var(--leading-relaxed);
     color: var(--text-primary);
     background-color: var(--bg-primary);
+    animation: pageLoad 0.4s ease;
+}
+
+@keyframes pageLoad {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--bg-secondary);
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.loader-bar {
+    height: 100%;
+    background: var(--text-primary);
+    animation: loaderProgress 0.8s ease forwards;
+}
+
+@keyframes loaderProgress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.page-loader.hidden {
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 a {

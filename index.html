@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-bar"></div>
+    </div>
     <nav class="nav">
         <a href="#" class="nav-logo">LK</a>
         <div class="nav-links">
@@ -623,6 +626,14 @@
     </footer>
 
     <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('pageLoader');
+                loader.classList.add('hidden');
+                setTimeout(() => loader.remove(), 300);
+            }, 800);
+        });
+
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
         
