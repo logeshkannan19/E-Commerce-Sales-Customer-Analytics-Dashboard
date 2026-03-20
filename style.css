@@ -226,11 +226,11 @@ a {
 }
 
 .hero-image img {
-    width: 320px;
-    height: 400px;
+    width: 280px;
+    height: 280px;
     object-fit: cover;
-    border-radius: 24px;
-    border: 1px solid var(--border);
+    border-radius: 50%;
+    border: 3px solid var(--border);
 }
 
 section {
@@ -719,8 +719,8 @@ section {
     width: 72px;
     height: 72px;
     object-fit: cover;
-    border-radius: 16px;
-    border: 1px solid var(--border);
+    border-radius: 50%;
+    border: 2px solid var(--border);
 }
 
 .contact-name {
