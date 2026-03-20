@@ -1059,6 +1059,16 @@
                 return;
             }
             
+            if (lowerQuery === 'matrix') {
+                activateMatrixMode();
+                return;
+            }
+            
+            if (lowerQuery === 'party') {
+                activatePartyMode();
+                return;
+            }
+            
             projects.forEach(project => {
                 const title = project.querySelector('.project-title').textContent.toLowerCase();
                 const tech = project.querySelector('.tech-tags').textContent.toLowerCase();
@@ -1126,6 +1136,164 @@
                 ticking = true;
             }
         });
+        
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    activateEasterEgg();
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+        
+        function activateEasterEgg() {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createConfetti(colors), i * 30);
+            }
+        }
+        
+        function createConfetti(colors) {
+            const confetti = document.createElement('div');
+            confetti.style.cssText = `
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                left: ${Math.random() * 100}vw;
+                top: -10px;
+                z-index: 10001;
+                border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                pointer-events: none;
+                animation: confettiFall ${2 + Math.random() * 2}s linear forwards;
+            `;
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 4000);
+        }
+        
+        const confettiStyle = document.createElement('style');
+        confettiStyle.textContent = `
+            @keyframes confettiFall {
+                to {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(confettiStyle);
+        
+        let clickCount = 0;
+        document.addEventListener('click', (e) => {
+            clickCount++;
+            if (clickCount === 5) {
+                createRipple(e.clientX, e.clientY);
+                clickCount = 0;
+            }
+        });
+        
+        function createRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                width: 10px;
+                height: 10px;
+                background: rgba(102, 126, 234, 0.6);
+                border-radius: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                z-index: 10000;
+                pointer-events: none;
+                animation: rippleExpand 0.6s ease-out forwards;
+            `;
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        }
+        
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            @keyframes rippleExpand {
+                to {
+                    transform: translate(-50%, -50%) scale(20);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
+        
+        const logo = document.querySelector('.nav-logo');
+        if (logo) {
+            logo.addEventListener('mouseenter', () => {
+                logo.style.animation = 'logoGlitch 0.3s ease';
+            });
+            logo.addEventListener('animationend', () => {
+                logo.style.animation = '';
+            });
+        }
+        
+        function activateMatrixMode() {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'matrixCanvas';
+            canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;pointer-events:none;';
+            document.body.appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+            const columns = Math.floor(canvas.width / 20);
+            const drops = Array(columns).fill(1);
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#0f0';
+                ctx.font = '15px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(char, i * 20, drops[i] * 20);
+                    if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            const matrixInterval = setInterval(draw, 50);
+            setTimeout(() => {
+                clearInterval(matrixInterval);
+                canvas.remove();
+            }, 5000);
+        }
+        
+        function activatePartyMode() {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe', '#ffd700', '#ff6b6b'];
+            let partyActive = true;
+            
+            function partyLoop() {
+                if (!partyActive) return;
+                for (let i = 0; i < 20; i++) {
+                    createConfetti(colors);
+                }
+                setTimeout(partyLoop, 500);
+            }
+            
+            partyLoop();
+            setTimeout(() => { partyActive = false; }, 8000);
+        }
+        
+        console.log('%c👋 Hey there, developer!', 'font-size: 20px; font-weight: bold; color: #667eea;');
+        console.log('%cWant to see something cool?', 'font-size: 14px; color: #764ba2;');
+        console.log('%c• Konami code: ↑↑↓↓←→←→BA', 'font-size: 12px; color: #667eea;');
+        console.log('%c• Type "matrix" in search for Matrix mode', 'font-size: 12px; color: #00ff00;');
+        console.log('%c• Type "party" in search for Party mode', 'font-size: 12px; color: #f5576c;');
     </script>
 </body>
 </html>
