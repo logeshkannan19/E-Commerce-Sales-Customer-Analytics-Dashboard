@@ -1697,22 +1697,49 @@ section {
 
 .skill-category {
     padding: 20px;
-    background: var(--bg-secondary);
+    background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.skill-category:hover {
+    border-color: #667eea;
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.skill-category-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.skill-category-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-1);
+    border-radius: 8px;
+    color: white;
 }
 
 .skill-category-title {
-    font-size: var(--text-sm);
+    font-family: var(--font-display);
+    font-size: var(--text-base);
     font-weight: 600;
-    margin-bottom: 10px;
     color: var(--text-primary);
 }
 
 .skill-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px 10px;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .skill-list span {
@@ -1734,27 +1761,60 @@ section {
 
 .skill-item-name {
     font-size: var(--text-sm);
+    font-weight: 500;
     color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.skill-item:hover .skill-item-name {
+    color: var(--text-primary);
 }
 
 .skill-item-level {
     font-size: var(--text-xs);
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: var(--bg-secondary);
     color: var(--text-muted);
 }
 
+.skill-item:hover .skill-item-level {
+    background: var(--gradient-1);
+    color: white;
+}
+
 .skill-bar {
-    height: 4px;
+    height: 6px;
     background: var(--border);
-    border-radius: 2px;
+    border-radius: 3px;
     overflow: hidden;
 }
 
 .skill-bar-fill {
     height: 100%;
     background: var(--gradient-1);
-    border-radius: 2px;
-    transition: width 0.8s ease;
+    border-radius: 3px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     width: 0;
+    position: relative;
+}
+
+.skill-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmerSkill 2s ease-in-out infinite;
+}
+
+@keyframes shimmerSkill {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
 }
 }
 
