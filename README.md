@@ -8,19 +8,19 @@
 
 
 
-<h3 align="center">🚀 Entrepreneur • Full-Stack Engineer • Building products that actually matter</h3>
+<h3 align="center">🚀 Supply Chain • Data Analytics • Business Intelligence</h3>
 
 ---
 
-## 🎨 Maya Portfolio — Cinematic Scrollytelling
+## 🎨 Portfolio — Cinematic Scrollytelling
 
 **Live Demo:** https://maya-portfolio-iota.vercel.app
 
-A high-end, cinematic portfolio website for "Maya," a Product Designer featuring:
+A high-end, cinematic portfolio website featuring:
 - 3D WebGL tunnel/mouth zoom effect with frame-by-frame animation
 - GSAP ScrollTrigger for smooth scroll-synced transitions
 - Dark Mode Editorial aesthetic (#0B0B0D)
-- Responsive 2-column project grid
+- Skills, Projects, Experience & Education sections
 
 ---
 
