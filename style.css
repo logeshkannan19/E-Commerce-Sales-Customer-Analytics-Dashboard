@@ -750,7 +750,15 @@ section {
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.03em;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+}
+
+.contact-desc {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    max-width: 400px;
 }
 
 .contact-email {
@@ -758,7 +766,7 @@ section {
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--accent);
-    margin-bottom: 32px;
+    margin-bottom: 28px;
     transition: opacity 0.2s;
 }
 
