@@ -11,6 +11,7 @@ class PortfolioApp {
         this.canvas = document.getElementById('hero-canvas');
         this.heroSection = document.getElementById('hero');
         this.workSection = document.getElementById('work');
+        this.loadingScreen = document.getElementById('loading-screen');
         
         this.scene = null;
         this.camera = null;
@@ -26,6 +27,7 @@ class PortfolioApp {
         this.isTransitioning = false;
         this.animationFrameId = null;
         this.clock = new THREE.Clock();
+        this.framesLoaded = false;
         
         this.init();
     }
@@ -33,9 +35,26 @@ class PortfolioApp {
     async init() {
         this.setupThreeJS();
         this.setupScrollTrigger();
+        
+        setTimeout(() => {
+            this.hideLoadingScreen();
+        }, 2000);
+        
         await this.loadFrames();
         this.setupEventListeners();
         this.animate();
+    }
+    
+    hideLoadingScreen() {
+        if (this.loadingScreen) {
+            gsap.to(this.loadingScreen, {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+                    this.loadingScreen.style.display = 'none';
+                }
+            });
+        }
     }
     
     setupThreeJS() {
@@ -46,7 +65,7 @@ class PortfolioApp {
         
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
-            alpha: false,
+            alpha: true,
             antialias: true,
             powerPreference: 'high-performance'
         });
@@ -57,7 +76,7 @@ class PortfolioApp {
         
         const geometry = new THREE.PlaneGeometry(2, 2);
         
-        const placeholderTexture = this.createPlaceholderTexture();
+        const placeholderTexture = this.createGradientTexture();
         
         this.material = new THREE.ShaderMaterial({
             uniforms: {
@@ -70,25 +89,37 @@ class PortfolioApp {
                 uTime: { value: 0.0 }
             },
             vertexShader: tunnelVertexShader,
-            fragmentShader: tunnelFragmentShader
+            fragmentShader: tunnelFragmentShader,
+            transparent: true
         });
         
         this.mesh = new THREE.Mesh(geometry, this.material);
         this.scene.add(this.mesh);
     }
     
-    createPlaceholderTexture() {
+    createGradientTexture() {
         const canvas = document.createElement('canvas');
         canvas.width = 1920;
         canvas.height = 1080;
         const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#0B0B0D';
+        
+        const gradient = ctx.createRadialGradient(
+            canvas.width / 2, canvas.height / 2, 0,
+            canvas.width / 2, canvas.height / 2, canvas.width / 2
+        );
+        gradient.addColorStop(0, '#1a1a1d');
+        gradient.addColorStop(0.5, '#0d0d0f');
+        gradient.addColorStop(1, '#0B0B0D');
+        
+        ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        ctx.fillStyle = '#1a1a1d';
-        ctx.font = '48px Inter, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('Loading...', canvas.width / 2, canvas.height / 2);
+        ctx.fillStyle = '#C8102E';
+        ctx.globalAlpha = 0.1;
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, canvas.height / 2, 200, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
         
         const texture = new THREE.CanvasTexture(canvas);
         texture.minFilter = THREE.LinearFilter;
@@ -109,7 +140,7 @@ class PortfolioApp {
                 this.updateLoadingProgress(progress);
             },
             onFrameReady: (frameIndex, texture) => {
-                if (frameIndex === 0 && !this.material.uniforms.uTexture.value) {
+                if (frameIndex === 0 && !this.framesLoaded) {
                     this.material.uniforms.uTexture.value = texture;
                 }
             },
@@ -118,23 +149,39 @@ class PortfolioApp {
             }
         });
         
-        await this.scrubEngine.preload();
+        try {
+            await this.scrubEngine.preload();
+            
+            const loadedCount = this.scrubEngine.getLoadedCount();
+            if (loadedCount < 10) {
+                console.log('Not enough frames loaded, using gradient fallback');
+                this.onFramesLoaded();
+            }
+        } catch (error) {
+            console.log('Frame loading failed, using gradient fallback');
+            this.onFramesLoaded();
+        }
     }
     
     updateLoadingProgress(progress) {
         const loadingText = document.querySelector('.loading-text');
+        const loadingBar = document.getElementById('loading-bar');
+        
         if (loadingText) {
             loadingText.textContent = `Loading frames: ${progress}%`;
+        }
+        if (loadingBar) {
+            loadingBar.style.width = `${progress}%`;
         }
     }
     
     onFramesLoaded() {
-        console.log('All frames loaded successfully');
-        this.isTransitioning = false;
+        console.log('Frames ready');
+        this.framesLoaded = true;
+        this.hideLoadingScreen();
         
-        const initialTexture = this.scrubEngine.getCurrentTexture();
-        if (initialTexture) {
-            this.material.uniforms.uTexture.value = initialTexture;
+        if (this.scrubEngine && this.scrubEngine.getCurrentTexture()) {
+            this.material.uniforms.uTexture.value = this.scrubEngine.getCurrentTexture();
         }
     }
     
@@ -167,7 +214,7 @@ class PortfolioApp {
     }
     
     handleScrollProgress(progress) {
-        if (!this.scrubEngine) return;
+        if (!this.scrubEngine || !this.framesLoaded) return;
         
         const frameCount = this.scrubEngine.getTotalCount();
         const targetFrame = progress * (frameCount - 1);
@@ -210,20 +257,6 @@ class PortfolioApp {
     setupEventListeners() {
         window.addEventListener('resize', this.handleResize.bind(this));
         this.setupProjectCardHover();
-        
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                this.scrollToProgress(Math.min(1, this.scrollProgress + 0.1));
-            } else if (e.key === 'ArrowLeft') {
-                this.scrollToProgress(Math.max(0, this.scrollProgress - 0.1));
-            }
-        });
-    }
-    
-    scrollToProgress(progress) {
-        const scrollHeight = this.heroSection.offsetHeight * 2.5;
-        const targetScroll = this.heroSection.offsetTop + (progress * scrollHeight);
-        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     }
     
     setupProjectCardHover() {
@@ -263,7 +296,7 @@ class PortfolioApp {
         
         const delta = this.clock.getDelta();
         
-        if (this.scrubEngine && this.scrubEngine.isPreloaded) {
+        if (this.scrubEngine && this.scrubEngine.isPreloaded && this.framesLoaded) {
             const wasUpdated = this.scrubEngine.update(delta * 60);
             
             if (wasUpdated) {
@@ -273,6 +306,8 @@ class PortfolioApp {
                 }
             }
         }
+        
+        this.material.uniforms.uTime.value = performance.now() * 0.001;
         
         this.renderer.render(this.scene, this.camera);
     }

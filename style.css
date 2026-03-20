@@ -102,6 +102,7 @@ img {
     position: relative;
     height: 250vh;
     width: 100%;
+    background: radial-gradient(ellipse at center, #1a1a1d 0%, #0B0B0D 70%);
 }
 
 .hero-canvas-container {
@@ -111,6 +112,7 @@ img {
     width: 100%;
     height: 100vh;
     z-index: 1;
+    background: radial-gradient(ellipse at center, #1a1a1d 0%, #0B0B0D 70%);
 }
 
 #hero-canvas {
