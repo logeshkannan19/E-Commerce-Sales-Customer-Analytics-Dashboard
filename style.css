@@ -110,6 +110,37 @@ body {
     }
 }
 
+::selection {
+    background: rgba(102, 126, 234, 0.3);
+    color: var(--text-primary);
+}
+
+::-moz-selection {
+    background: rgba(102, 126, 234, 0.3);
+    color: var(--text-primary);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #667eea;
+}
+
+:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
 .skeleton {
     background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
     background-size: 200% 100%;
@@ -174,12 +205,12 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    height: 2px;
-    background: var(--text-primary);
+    height: 3px;
+    background: var(--gradient-1);
     z-index: 10000;
     width: 0%;
     transition: width 0.1s linear;
-    opacity: 0.6;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
 }
 
 .cursor-dot {
@@ -224,6 +255,16 @@ a:hover ~ .cursor-ring {
     width: 100%;
     height: 100%;
     z-index: 0;
+    pointer-events: none;
+}
+
+.noise-svg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
     pointer-events: none;
 }
 
@@ -618,6 +659,20 @@ small, .text-sm {
     background: linear-gradient(90deg, #667eea, #764ba2);
     opacity: 0.3;
     border-radius: 2px;
+}
+
+.hero-headline .cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background: #667eea;
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
 }
 
 .hero-desc {
@@ -2229,5 +2284,52 @@ section {
     
     .subscribe-btn {
         width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .scroll-reveal,
+    .scroll-reveal-left,
+    .scroll-reveal-right,
+    .scroll-reveal-scale,
+    .gradient-orbs .orb {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .scroll-reveal,
+    .scroll-reveal-left,
+    .scroll-reveal-right {
+        opacity: 1;
+        transform: none;
+        transition: none;
     }
 }
