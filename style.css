@@ -246,6 +246,34 @@ p {
     display: block;
 }
 
+.search-input {
+    padding: 8px 12px;
+    font-size: var(--text-sm);
+    font-family: var(--font-body);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-primary);
+    outline: none;
+    width: 120px;
+    transition: all 0.2s;
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-input:focus {
+    border-color: var(--text-primary);
+    width: 160px;
+}
+
+@media (max-width: 768px) {
+    .search-input {
+        display: none;
+    }
+}
+
 .hero {
     min-height: 100vh;
     display: grid;
