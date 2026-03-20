@@ -1294,6 +1294,195 @@
         console.log('%c• Konami code: ↑↑↓↓←→←→BA', 'font-size: 12px; color: #667eea;');
         console.log('%c• Type "matrix" in search for Matrix mode', 'font-size: 12px; color: #00ff00;');
         console.log('%c• Type "party" in search for Party mode', 'font-size: 12px; color: #f5576c;');
+        console.log('%c• Keyboard: J/K to navigate, G=scroll top, Shift+G=bottom', 'font-size: 12px; color: #ffd700;');
+        console.log('%c• Ctrl+Shift+V for voice commands', 'font-size: 12px; color: #4facfe;');
+        
+        const sections = ['hero', 'about', 'projects', 'impact', 'skills', 'experience', 'education', 'contact'];
+        let currentSection = 0;
+        
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+            
+            if (e.key === 'j' || e.key === 'J') {
+                currentSection = Math.min(currentSection + 1, sections.length - 1);
+                document.getElementById(sections[currentSection])?.scrollIntoView({ behavior: 'smooth' });
+                showSectionIndicator(sections[currentSection]);
+            }
+            
+            if (e.key === 'k' || e.key === 'K') {
+                currentSection = Math.max(currentSection - 1, 0);
+                document.getElementById(sections[currentSection])?.scrollIntoView({ behavior: 'smooth' });
+                showSectionIndicator(sections[currentSection]);
+            }
+            
+            if (e.key === 'g' || e.key === 'G') {
+                if (e.shiftKey) {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    showSectionIndicator('contact');
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    showSectionIndicator('hero');
+                }
+            }
+        });
+        
+        function showSectionIndicator(name) {
+            const indicator = document.createElement('div');
+            indicator.className = 'section-indicator';
+            indicator.textContent = name.toUpperCase();
+            indicator.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 8px 16px;
+                background: var(--gradient-1);
+                color: white;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 2px;
+                border-radius: 20px;
+                z-index: 10001;
+                animation: fadeInOut 1.5s ease forwards;
+                pointer-events: none;
+            `;
+            document.body.appendChild(indicator);
+            setTimeout(() => indicator.remove(), 1500);
+        }
+        
+        const indicatorStyle = document.createElement('style');
+        indicatorStyle.textContent = `
+            @keyframes fadeInOut {
+                0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+                20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(indicatorStyle);
+        
+        let lastScrollTop = 0;
+        let scrollDirection = '';
+        const scrollIndicator = document.createElement('div');
+        scrollIndicator.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>';
+        scrollIndicator.style.cssText = `
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            width: 32px;
+            height: 32px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: var(--text-secondary);
+        `;
+        document.body.appendChild(scrollIndicator);
+        
+        window.addEventListener('scroll', () => {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > 200) {
+                scrollIndicator.style.opacity = '1';
+                if (st > lastScrollTop) {
+                    scrollDirection = 'down';
+                    scrollIndicator.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
+                } else {
+                    scrollDirection = 'up';
+                    scrollIndicator.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>';
+                }
+            } else {
+                scrollIndicator.style.opacity = '0';
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+        });
+        
+        scrollIndicator.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        if ('ontouchstart' in window) {
+            let touchStartY = 0;
+            let touchEndY = 0;
+            
+            document.addEventListener('touchstart', (e) => {
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+            
+            document.addEventListener('touchend', (e) => {
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const swipeThreshold = 100;
+                const diff = touchStartY - touchEndY;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0 && currentSection < sections.length - 1) {
+                        currentSection++;
+                        document.getElementById(sections[currentSection])?.scrollIntoView({ behavior: 'smooth' });
+                    } else if (diff < 0 && currentSection > 0) {
+                        currentSection--;
+                        document.getElementById(sections[currentSection])?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }
+        }
+        
+        if ('speechSynthesis' in window) {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'v' && e.shiftKey && e.ctrlKey) {
+                    recognition.start();
+                    const audioHint = document.createElement('div');
+                    audioHint.textContent = '🎤 Listening... Say "scroll down" or "scroll up"';
+                    audioHint.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        padding: 20px 40px;
+                        background: var(--bg-card);
+                        border: 1px solid var(--border);
+                        border-radius: 12px;
+                        font-size: 14px;
+                        z-index: 10001;
+                        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+                    `;
+                    document.body.appendChild(audioHint);
+                    
+                    recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript.toLowerCase();
+                        if (transcript.includes('down')) {
+                            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+                        } else if (transcript.includes('up')) {
+                            window.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+                        }
+                        audioHint.remove();
+                    };
+                    
+                    recognition.onend = () => audioHint.remove();
+                }
+            });
+        }
+        
+        let lastTap = 0;
+        document.addEventListener('touchend', (e) => {
+            const currentTime = new Date().getTime();
+            const tapGap = currentTime - lastTap;
+            if (tapGap < 300 && tapGap > 0 && window.scrollY < 100) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            lastTap = currentTime;
+        }, { passive: true });
     </script>
 </body>
 </html>
