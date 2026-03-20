@@ -1071,6 +1071,61 @@
                 project.style.display = matches ? 'block' : 'none';
             });
         }
+        
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            document.querySelectorAll('.btn').forEach(btn => {
+                const rect = btn.getBoundingClientRect();
+                const btnX = rect.left + rect.width / 2;
+                const btnY = rect.top + rect.height / 2;
+                const distX = mouseX - btnX;
+                const distY = mouseY - btnY;
+                const distance = Math.sqrt(distX * distX + distY * distY);
+                
+                if (distance < 100) {
+                    const moveX = (distX / distance) * Math.min(10, 100 - distance) * 0.3;
+                    const moveY = (distY / distance) * Math.min(10, 100 - distance) * 0.3;
+                    btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                } else {
+                    btn.style.transform = '';
+                }
+            });
+        });
+        
+        document.querySelectorAll('.project-card, .impact-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+        
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const hero = document.querySelector('.hero');
+                    if (hero) {
+                        const rate = scrolled * 0.3;
+                        hero.style.setProperty('--parallax', `${rate}px`);
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
     </script>
 </body>
 </html>
