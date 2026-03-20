@@ -102,11 +102,81 @@ body {
 @keyframes pageLoad {
     from {
         opacity: 0;
-        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes shimmer2 {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes floatGently {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
 
@@ -505,8 +575,17 @@ small, .text-sm {
     justify-content: space-between;
     align-items: center;
     padding: 20px 64px;
-    background: rgba(255, 255, 255, 0.98);
-    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.nav.scrolled {
+    padding: 14px 64px;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom-color: var(--border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
 
 .nav-logo {
@@ -519,6 +598,11 @@ small, .text-sm {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
 }
 
 @keyframes logoGlitch {
@@ -631,8 +715,6 @@ small, .text-sm {
     --parallax: 0px;
     will-change: transform;
 }
-    position: relative;
-}
 
 .hero-center {
     display: flex;
@@ -650,12 +732,27 @@ small, .text-sm {
     gap: 12px;
     margin-bottom: 32px;
     flex-wrap: wrap;
+    animation: slideUp 0.8s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
 }
 
 .context-tag {
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--text-secondary);
+    padding: 6px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.context-tag:hover {
+    background: var(--gradient-1);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
 }
 
 .context-sep {
@@ -669,15 +766,20 @@ small, .text-sm {
     line-height: 1.05;
     letter-spacing: -0.04em;
     margin-bottom: 24px;
+    animation: slideUp 0.8s ease forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
 }
 
 .hero-headline .highlight {
     background: var(--gradient-1);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     position: relative;
     display: inline-block;
+    animation: gradientShift 3s ease infinite;
 }
 
 .hero-headline .highlight::after {
@@ -712,11 +814,17 @@ small, .text-sm {
     color: var(--text-secondary);
     margin-bottom: 40px;
     max-width: 520px;
+    animation: slideUp 0.8s ease forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
 }
 
 .hero-cta {
     display: flex;
     gap: 12px;
+    animation: slideUp 0.8s ease forwards;
+    animation-delay: 0.8s;
+    opacity: 0;
 }
 
 .hero-scroll {
@@ -730,6 +838,9 @@ small, .text-sm {
     font-size: var(--text-xs);
     font-weight: 500;
     letter-spacing: 0.05em;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 1.2s;
+    opacity: 0;
 }
 
 .hero-scroll svg {
@@ -739,6 +850,33 @@ small, .text-sm {
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(6px); }
+}
+
+.animate-in {
+    animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.project-card,
+.impact-card,
+.skill-item,
+.timeline-item,
+.education-card {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.project-card.animate-in,
+.impact-card.animate-in {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.skill-item.animate-in {
+    animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.timeline-item.animate-in,
+.education-card.animate-in {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .hero-skills {
@@ -908,9 +1046,17 @@ section {
 
 .section-header {
     margin-bottom: var(--space-10);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.section-label {
+.section-header.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-header .section-label {
     display: block;
     font-size: var(--text-xs);
     font-weight: 600;
