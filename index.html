@@ -236,6 +236,61 @@
             </div>
         </section>
 
+        <section class="fun-facts" id="fun-facts">
+            <div class="section-header">
+                <span class="section-label">01.5 — Beyond Code</span>
+                <h2 class="section-title">What I do for fun</h2>
+            </div>
+            <div class="fun-facts-grid">
+                <div class="fun-fact-card">
+                    <div class="fun-fact-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </div>
+                    <h3>Continuous Learning</h3>
+                    <p>Perpetual student of distributed systems, always diving into papers and exploring new architectural patterns.</p>
+                </div>
+                <div class="fun-fact-card">
+                    <div class="fun-fact-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                    </div>
+                    <h3>System Design Thinking</h3>
+                    <p>Turns coffee into architecture diagrams. You might find me sketching load balancers on napkins at 2 AM.</p>
+                </div>
+                <div class="fun-fact-card">
+                    <div class="fun-fact-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3>Open Source Enthusiast</h3>
+                    <p>Strong believer in community-driven development. Contributing to OSS keeps the skills sharp and reputation growing.</p>
+                </div>
+                <div class="fun-fact-card">
+                    <div class="fun-fact-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+                    </div>
+                    <h3>Entrepreneurial Spirit</h3>
+                    <p>Always ideating the next big thing. Currently building Veloxa to revolutionize hyperlocal delivery.</p>
+                </div>
+            </div>
+            <div class="fun-stats-row">
+                <div class="fun-stat">
+                    <span class="fun-stat-num" data-count="1500">0</span>
+                    <span class="fun-stat-label">Cups of Coffee</span>
+                </div>
+                <div class="fun-stat">
+                    <span class="fun-stat-num" data-count="200">0</span>
+                    <span class="fun-stat-label">Commits This Year</span>
+                </div>
+                <div class="fun-stat">
+                    <span class="fun-stat-num" data-count="3">0</span>
+                    <span class="fun-stat-label">Projects Shipped</span>
+                </div>
+                <div class="fun-stat">
+                    <span class="fun-stat-num" data-count="∞">0</span>
+                    <span class="fun-stat-label">Lines of Code</span>
+                </div>
+            </div>
+        </section>
+
         <section class="projects" id="projects">
             <div class="section-header">
                 <span class="section-label">02 — Projects</span>
@@ -2363,6 +2418,33 @@
         if (words.length > 0) {
             setInterval(rotateWords, 2500);
         }
+        
+        const funStats = document.querySelectorAll('.fun-stat-num');
+        const funObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target.dataset.count;
+                    if (target === '∞') {
+                        entry.target.textContent = '∞';
+                    } else {
+                        let current = 0;
+                        const num = parseInt(target);
+                        const increment = num / 40;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= num) {
+                                current = num;
+                                clearInterval(timer);
+                            }
+                            entry.target.textContent = Math.floor(current) + '+';
+                        }, 50);
+                    }
+                    funObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        funStats.forEach(stat => funObserver.observe(stat));
     </script>
 </body>
 </html>
