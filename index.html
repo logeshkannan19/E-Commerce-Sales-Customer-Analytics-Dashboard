@@ -243,7 +243,7 @@
                     <div class="impact-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                     </div>
-                    <span class="impact-value">&lt;100ms</span>
+                    <span class="impact-value" data-count="100" data-suffix="ms" data-prefix="&lt;">&lt;100ms</span>
                     <span class="impact-label">API Response Time</span>
                     <p class="impact-desc">Reduced latency by 40% through Redis caching and async processing</p>
                 </div>
@@ -251,7 +251,7 @@
                     <div class="impact-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
-                    <span class="impact-value">5K+</span>
+                    <span class="impact-value" data-count="5000" data-suffix="+">5K+</span>
                     <span class="impact-label">Concurrent Users</span>
                     <p class="impact-desc">Real-time systems supporting thousands of simultaneous connections</p>
                 </div>
@@ -259,7 +259,7 @@
                     <div class="impact-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                     </div>
-                    <span class="impact-value">100K+</span>
+                    <span class="impact-value" data-count="100" data-suffix="K+">100K+</span>
                     <span class="impact-label">Records Daily</span>
                     <p class="impact-desc">Automated pipelines processing large-scale data efficiently</p>
                 </div>
@@ -267,7 +267,7 @@
                     <div class="impact-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     </div>
-                    <span class="impact-value">30min</span>
+                    <span class="impact-value" data-count="30" data-suffix="min">30min</span>
                     <span class="impact-label">Delivery Promise</span>
                     <p class="impact-desc">Hyperlocal platform enabling sub-30-minute fulfillment</p>
                 </div>
@@ -859,6 +859,34 @@
             closeModal();
         }
     });
+
+    const counters = document.querySelectorAll('.impact-value[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.count);
+                const suffix = el.dataset.suffix || '';
+                const prefix = el.dataset.prefix || '';
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    if (target >= 1000) {
+                        el.textContent = prefix + Math.floor(current / 1000) + 'K' + suffix.replace('K+', '').replace('+', '');
+                    } else {
+                        el.textContent = prefix + Math.floor(current) + suffix;
+                    }
+                }, 30);
+                counterObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    counters.forEach(counter => counterObserver.observe(counter));
     </script>
     <script>
         const cursorDot = document.getElementById('cursorDot');
