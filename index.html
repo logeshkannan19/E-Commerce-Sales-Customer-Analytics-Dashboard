@@ -246,6 +246,42 @@
             </div>
         </section>
 
+        <section class="big-stats" id="big-stats">
+            <div class="big-stats-container">
+                <div class="big-stat-item">
+                    <span class="big-stat-number">
+                        <span class="stat-count" data-target="99.9">0</span><span class="stat-suffix">%</span>
+                    </span>
+                    <span class="big-stat-label">System Uptime</span>
+                    <span class="big-stat-desc">Maintained 99.9% uptime across production deployments</span>
+                </div>
+                <div class="big-stat-divider"></div>
+                <div class="big-stat-item">
+                    <span class="big-stat-number">
+                        <span class="stat-count" data-target="5">0</span><span class="stat-suffix">+</span>
+                    </span>
+                    <span class="big-stat-label">Years Experience</span>
+                    <span class="big-stat-desc">Building scalable systems since 2020</span>
+                </div>
+                <div class="big-stat-divider"></div>
+                <div class="big-stat-item">
+                    <span class="big-stat-number">
+                        <span class="stat-count" data-target="50">0</span><span class="stat-suffix">+</span>
+                    </span>
+                    <span class="big-stat-label">Projects Delivered</span>
+                    <span class="big-stat-desc">From startups to enterprise solutions</span>
+                </div>
+                <div class="big-stat-divider"></div>
+                <div class="big-stat-item">
+                    <span class="big-stat-number">
+                        <span class="stat-count" data-target="500">0</span><span class="stat-suffix">+</span>
+                    </span>
+                    <span class="big-stat-label">Connections</span>
+                    <span class="big-stat-desc">Growing professional network</span>
+                </div>
+            </div>
+        </section>
+
         <section class="fun-facts" id="fun-facts">
             <div class="section-header">
                 <span class="section-label">01.5 — Beyond Code</span>
@@ -2257,6 +2293,47 @@
         }, { threshold: 0.5 });
         
         funStats.forEach(stat => funObserver.observe(stat));
+        
+        const statCounts = document.querySelectorAll('.stat-count');
+        const bigStatsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseFloat(el.dataset.target);
+                    let current = 0;
+                    const duration = 2000;
+                    const startTime = performance.now();
+                    
+                    function updateCount(currentTime) {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const easeProgress = 1 - Math.pow(1 - progress, 3);
+                        current = target * easeProgress;
+                        
+                        if (target % 1 !== 0) {
+                            el.textContent = current.toFixed(1);
+                        } else {
+                            el.textContent = Math.floor(current);
+                        }
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            if (target % 1 !== 0) {
+                                el.textContent = target.toFixed(1);
+                            } else {
+                                el.textContent = target;
+                            }
+                        }
+                    }
+                    
+                    requestAnimationFrame(updateCount);
+                    bigStatsObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        statCounts.forEach(stat => bigStatsObserver.observe(stat));
         
         const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
         const sections = document.querySelectorAll('section[id]');
