@@ -145,6 +145,8 @@
             </div>
             <div class="hero-center">
                 <div class="hero-context">
+                    <span class="greeting-tag" id="greetingTag"></span>
+                    <span class="context-sep">•</span>
                     <span class="context-tag">Full-Stack Engineer</span>
                     <span class="context-sep">•</span>
                     <span class="context-tag">Entrepreneur</span>
@@ -2412,6 +2414,24 @@
                 }, 50);
             }
         });
+        
+        const greetingTag = document.getElementById('greetingTag');
+        if (greetingTag) {
+            const hour = new Date().getHours();
+            let greeting = '';
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Good Morning';
+            } else if (hour >= 12 && hour < 17) {
+                greeting = 'Good Afternoon';
+            } else if (hour >= 17 && hour < 21) {
+                greeting = 'Good Evening';
+            } else {
+                greeting = 'Night Owl';
+            }
+            
+            greetingTag.textContent = greeting;
+        }
         
         const heroStats = document.querySelectorAll('.hero-stat-num');
         heroStats.forEach(stat => {
