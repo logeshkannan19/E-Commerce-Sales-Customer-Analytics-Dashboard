@@ -137,6 +137,8 @@
         <section class="hero" id="hero">
             <div class="hero-center">
                 <div class="hero-context">
+                    <span class="hero-greeting" id="heroGreeting">Good evening</span>
+                    <span class="context-sep">•</span>
                     <span class="context-tag">Full-Stack Engineer</span>
                     <span class="context-sep">•</span>
                     <span class="context-tag">Entrepreneur</span>
@@ -2346,6 +2348,355 @@
         if (words.length > 0) {
             setInterval(rotateWords, 2500);
         }
+
+        // Dynamic time-based greeting
+        const greeting = document.getElementById('heroGreeting');
+        const hour = new Date().getHours();
+        let greet = 'Good evening';
+        if (hour >= 5 && hour < 12) greet = 'Good morning';
+        else if (hour >= 12 && hour < 17) greet = 'Good afternoon';
+        else if (hour >= 17 && hour < 21) greet = 'Good evening';
+        else greet = 'Good night';
+        if (greeting) greeting.textContent = greet;
+
+        // Terminal Easter Egg
+        const terminal = document.createElement('div');
+        terminal.id = 'terminal';
+        terminal.innerHTML = `
+            <div class="terminal-header">
+                <span class="terminal-title">logesh@portfolio:~</span>
+                <button class="terminal-close" onclick="closeTerminal()">×</button>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-output" id="terminalOutput"></div>
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">$</span>
+                    <input type="text" id="terminalInput" class="terminal-input" placeholder="Type 'help' to get started..." autocomplete="off">
+                </div>
+            </div>
+        `;
+        document.body.appendChild(terminal);
+
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+
+        const commands = {
+            help: `Available commands:
+  help      - Show this help message
+  about     - Learn about Logesh
+  skills    - List technical skills
+  projects  - View featured projects
+  contact   - Get contact information
+  github    - Open GitHub profile
+  linkedin  - Open LinkedIn profile
+  twitter   - Open Twitter profile
+  email     - Compose an email
+  clear     - Clear terminal
+  matrix    - Enable matrix mode
+  party     - Enable party mode
+  dark      - Toggle dark mode
+  date      - Show current date & time
+  whoami    - Display current user
+  ls        - List portfolio sections
+  cat       - Read a secret message`,
+            about: `Logesh Kannan — Full-Stack Engineer & Entrepreneur
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Building high-performance distributed systems since 2020.
+Based in Dubai, UAE. Available for consulting.
+
+Expertise: Distributed systems, real-time apps, cloud infrastructure.
+Let's build something that scales.`,
+            skills: `Technical Skills:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Backend:     Node.js, Python, TypeScript
+Frontend:    React, Next.js, Vue
+Database:    PostgreSQL, MongoDB, Redis
+Cloud:       AWS, GCP, Vercel, Docker
+ML/AI:       TensorFlow, PyTorch, OpenCV
+Tools:       Git, CI/CD, WebSocket, REST`,
+            projects: `Featured Projects:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Veloxa - Logistics & delivery platform
+2. Real-Time Communication - WebSocket system
+3. Churn Prediction - ML pipeline
+4. Toll Management - Automated system
+5. SpendIQ AI - Financial analytics
+
+Type 'contact' to discuss your project.`,
+            contact: `Contact Information:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Email:    logeshkannan19@gmail.com
+Phone:    +971 50 595 6150 (UAE)
+Twitter:  @LOGESHx7
+GitHub:   github.com/logeshkannan19
+LinkedIn: linkedin.com/in/logeshkannana
+
+Let's connect!`,
+            github: 'Opening GitHub profile...',
+            linkedin: 'Opening LinkedIn profile...',
+            twitter: 'Opening Twitter profile...',
+            email: 'Opening email client...',
+            clear: 'CLEAR',
+            matrix: 'Enabling matrix mode...',
+            party: 'Enabling party mode...',
+            dark: 'Toggling dark mode...',
+            date: () => new Date().toString(),
+            whoami: 'visitor@logesh-portfolio',
+            ls: `portfolio/
+├── index.html
+├── style.css
+├── projects/
+│   ├── veloxa/
+│   ├── realtime-comm/
+│   ├── churn-prediction/
+│   └── toll-management/
+└── README.md`,
+            cat: `You found a secret!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+"The best code is no code at all."
+— Jeff Atwood
+
+Keep exploring... there might be more.`
+        };
+
+        function addOutput(text, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `terminal-line ${type}`;
+            div.innerHTML = text.replace(/\n/g, '<br>');
+            terminalOutput.appendChild(div);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = terminalInput.value.trim().toLowerCase();
+                addOutput(`<span class="prompt">$</span> ${terminalInput.value}`);
+                terminalInput.value = '';
+
+                if (cmd === 'clear') {
+                    terminalOutput.innerHTML = '';
+                } else if (cmd === 'github') {
+                    window.open('https://github.com/logeshkannan19', '_blank');
+                    addOutput('Opening GitHub...');
+                } else if (cmd === 'linkedin') {
+                    window.open('https://www.linkedin.com/in/logeshkannana/', '_blank');
+                    addOutput('Opening LinkedIn...');
+                } else if (cmd === 'twitter') {
+                    window.open('https://x.com/LOGESHx7', '_blank');
+                    addOutput('Opening Twitter...');
+                } else if (cmd === 'email') {
+                    window.location.href = 'mailto:logeshkannan19@gmail.com';
+                    addOutput('Opening email client...');
+                } else if (cmd === 'matrix') {
+                    addOutput('Enabling matrix mode...');
+                    if (typeof enableMatrixMode === 'function') enableMatrixMode();
+                } else if (cmd === 'party') {
+                    addOutput('Enabling party mode...');
+                    if (typeof enablePartyMode === 'function') enablePartyMode();
+                } else if (cmd === 'dark') {
+                    addOutput('Toggling dark mode...');
+                    if (typeof toggleTheme === 'function') toggleTheme();
+                } else if (cmd === 'date') {
+                    addOutput(new Date().toString());
+                } else if (commands[cmd]) {
+                    addOutput(typeof commands[cmd] === 'function' ? commands[cmd]() : commands[cmd]);
+                } else if (cmd) {
+                    addOutput(`Command not found: ${cmd}. Type 'help' for available commands.`, 'error');
+                }
+            }
+        });
+
+        function openTerminal() {
+            terminal.classList.add('active');
+            terminalInput.focus();
+        }
+
+        function closeTerminal() {
+            terminal.classList.remove('active');
+        }
+
+        // Keyboard shortcut to open terminal (Ctrl+`)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '`' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                openTerminal();
+            }
+            if (e.key === 'Escape') {
+                closeTerminal();
+            }
+        });
+
+        // Floating Achievements
+        const achievements = [
+            { icon: '⚡', text: 'Performance Master', x: 10 },
+            { icon: '🚀', text: 'Speed Demon', x: 85 },
+            { icon: '🎯', text: 'Explorer', x: 50 },
+            { icon: '💡', text: 'Curious Mind', x: 30 }
+        ];
+
+        const badgeContainer = document.createElement('div');
+        badgeContainer.id = 'achievement-badges';
+        badgeContainer.innerHTML = achievements.map((a, i) => `
+            <div class="floating-badge" data-achievement="${a.text}" style="left: ${a.x}%; animation-delay: ${i * 0.5}s">
+                <span class="badge-icon">${a.icon}</span>
+                <span class="badge-text">${a.text}</span>
+            </div>
+        `).join('');
+        document.body.appendChild(badgeContainer);
+
+        // Skill Constellation
+        const skillsData = [
+            { name: 'Node.js', level: 95, x: 50, y: 20 },
+            { name: 'TypeScript', level: 90, x: 30, y: 35 },
+            { name: 'React', level: 88, x: 70, y: 35 },
+            { name: 'PostgreSQL', level: 85, x: 20, y: 55 },
+            { name: 'Redis', level: 82, x: 80, y: 55 },
+            { name: 'AWS', level: 80, x: 50, y: 50 },
+            { name: 'Docker', level: 78, x: 35, y: 70 },
+            { name: 'Python', level: 75, x: 65, y: 70 }
+        ];
+
+        const constellationContainer = document.createElement('div');
+        constellationContainer.id = 'skill-constellation';
+        constellationContainer.innerHTML = `
+            <canvas id="constellationCanvas"></canvas>
+            <div class="constellation-labels"></div>
+        `;
+
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+            skillsSection.insertBefore(constellationContainer, skillsSection.firstChild);
+        }
+
+        const canvas = document.getElementById('constellationCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouseX = 0, mouseY = 0;
+
+        function initConstellation() {
+            const container = document.getElementById('skill-constellation');
+            if (!container || !canvas) return;
+
+            canvas.width = container.offsetWidth;
+            canvas.height = 300;
+
+            particles = skillsData.map((skill, i) => ({
+                ...skill,
+                baseX: (skill.x / 100) * canvas.width,
+                baseY: (skill.y / 100) * canvas.height,
+                x: (skill.x / 100) * canvas.width,
+                y: (skill.y / 100) * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: 4 + (skill.level / 100) * 6,
+                pulse: Math.random() * Math.PI * 2
+            }));
+
+            const labelsContainer = container.querySelector('.constellation-labels');
+            if (labelsContainer) {
+                labelsContainer.innerHTML = skillsData.map(skill =>
+                    `<span class="constellation-label" style="left: ${skill.x}%; top: ${skill.y}%; opacity: 0.8">${skill.name}</span>`
+                ).join('');
+            }
+        }
+
+        function drawConstellation() {
+            if (!canvas || !ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw connections
+            particles.forEach((p1, i) => {
+                particles.slice(i + 1).forEach(p2 => {
+                    const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(102, 126, 234, ${0.3 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            // Draw particles
+            particles.forEach(p => {
+                p.pulse += 0.02;
+                const pulseSize = p.size + Math.sin(p.pulse) * 2;
+
+                // Glow
+                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, pulseSize * 3);
+                gradient.addColorStop(0, 'rgba(102, 126, 234, 0.8)');
+                gradient.addColorStop(0.5, 'rgba(118, 75, 162, 0.3)');
+                gradient.addColorStop(1, 'transparent');
+                ctx.beginPath();
+                ctx.fillStyle = gradient;
+                ctx.arc(p.x, p.y, pulseSize * 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Core
+                ctx.beginPath();
+                ctx.fillStyle = '#fff';
+                ctx.arc(p.x, p.y, pulseSize, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Mouse interaction
+            particles.forEach(p => {
+                const dx = mouseX - p.x;
+                const dy = mouseY - p.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 100) {
+                    p.x -= dx * 0.02;
+                    p.y -= dy * 0.02;
+                } else {
+                    p.x += (p.baseX - p.x) * 0.05;
+                    p.y += (p.baseY - p.y) * 0.05;
+                }
+            });
+
+            requestAnimationFrame(drawConstellation);
+        }
+
+        canvas?.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+        });
+
+        // Initialize constellation when visible
+        const constellationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    initConstellation();
+                    drawConstellation();
+                    constellationObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const skillsSectionEl = document.getElementById('skills');
+        if (skillsSectionEl) constellationObserver.observe(skillsSectionEl);
+
+        // Project Modal Gallery
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const modal = document.getElementById('projectModal');
+                const title = card.querySelector('.project-title')?.textContent || '';
+
+                let galleryHTML = '';
+                for (let i = 0; i < 3; i++) {
+                    galleryHTML += `<div class="gallery-slide ${i === 0 ? 'active' : ''}">
+                        <div class="gallery-placeholder">${title} Preview ${i + 1}</div>
+                    </div>`;
+                }
+
+                const existingGallery = modal.querySelector('.project-gallery');
+                if (existingGallery) {
+                    existingGallery.innerHTML = galleryHTML;
+                }
+            });
+        });
     </script>
 </body>
 </html>
