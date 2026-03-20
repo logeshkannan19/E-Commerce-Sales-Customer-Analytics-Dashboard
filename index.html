@@ -6,19 +6,10 @@
     <title>Logesh Kannan — Supply Chain & Data Analytics</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="loading-screen" id="loading-screen">
-        <div class="loading-content">
-            <div class="loading-progress">
-                <div class="loading-bar" id="loading-bar"></div>
-            </div>
-            <p class="loading-text">Loading frames: 0%</p>
-        </div>
-    </div>
-
     <header class="header">
         <a href="#" class="logo">Logesh Kannan</a>
         <div class="header-contact">
@@ -29,8 +20,9 @@
 
     <main>
         <section class="hero" id="hero">
-            <div class="hero-canvas-container">
-                <canvas id="hero-canvas"></canvas>
+            <div class="hero-bg">
+                <div class="hero-gradient"></div>
+                <div class="hero-particles"></div>
             </div>
             <div class="hero-content">
                 <div class="hero-text">
@@ -119,7 +111,7 @@
             <div class="work-grid">
                 <article class="project-card" data-project="1">
                     <div class="project-image-wrapper">
-                        <img src="assets/images/project-1.jpg" alt="Customer Churn Prediction" class="project-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Customer Churn Prediction" class="project-image">
                     </div>
                     <div class="project-info">
                         <h3 class="project-title">Customer Churn Prediction</h3>
@@ -131,7 +123,7 @@
                 </article>
                 <article class="project-card" data-project="2">
                     <div class="project-image-wrapper">
-                        <img src="assets/images/project-2.jpg" alt="Real-Time Distributed System" class="project-image">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80" alt="Real-Time Distributed System" class="project-image">
                     </div>
                     <div class="project-info">
                         <h3 class="project-title">Real-Time Distributed System</h3>
@@ -244,15 +236,5 @@
             </div>
         </footer>
     </main>
-
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-            "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.4/index.js"
-        }
-    }
-    </script>
-    <script type="module" src="main.js"></script>
 </body>
 </html>

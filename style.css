@@ -100,29 +100,53 @@ img {
 
 .hero {
     position: relative;
-    height: 250vh;
+    height: 100vh;
     width: 100%;
-    background: radial-gradient(ellipse at center, #1a1a1d 0%, #0B0B0D 70%);
+    overflow: hidden;
 }
 
-.hero-canvas-container {
-    position: fixed;
+.hero-bg {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: 1;
-    background: radial-gradient(ellipse at center, #1a1a1d 0%, #0B0B0D 70%);
 }
 
-#hero-canvas {
+.hero-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    display: block;
+    background: 
+        radial-gradient(ellipse at 30% 20%, rgba(200, 16, 46, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(200, 16, 46, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse at center, #1a1a1d 0%, #0B0B0D 70%);
+}
+
+.hero-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.02) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 100px 100px, 150px 150px, 200px 200px;
+    animation: particleFloat 20s linear infinite;
+}
+
+@keyframes particleFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100px); }
 }
 
 .hero-content {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
@@ -132,7 +156,6 @@ img {
     justify-content: flex-end;
     padding: clamp(32px, 5vw, 64px);
     padding-bottom: clamp(48px, 8vh, 96px);
-    pointer-events: none;
 }
 
 .hero-text {
@@ -638,45 +661,6 @@ img {
 }
 
 .copyright {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-}
-
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-primary);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.5s ease;
-}
-
-.loading-content {
-    text-align: center;
-}
-
-.loading-progress {
-    width: 200px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-    overflow: hidden;
-    margin-bottom: 16px;
-}
-
-.loading-bar {
-    height: 100%;
-    background: var(--accent);
-    width: 0%;
-    transition: width 0.3s ease;
-}
-
-.loading-text {
     font-size: 0.875rem;
     color: var(--text-secondary);
 }
