@@ -1116,6 +1116,49 @@ small, .text-sm {
     opacity: 0;
 }
 
+.hero-animated-text {
+    animation: slideUp 0.8s ease forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+    margin-bottom: 24px;
+}
+
+.hero-text-line {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.hero-word-container {
+    height: clamp(2.75rem, 7vw, 4.5rem);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-word {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: var(--gradient-1);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease infinite;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-word.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .hero-headline .highlight {
     background: var(--gradient-1);
     background-size: 200% 200%;
@@ -1151,6 +1194,49 @@ small, .text-sm {
 
 @keyframes blink {
     50% { opacity: 0; }
+
+.hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 32px;
+    padding: 20px 32px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    animation: slideUp 0.8s ease forwards;
+    animation-delay: 0.8s;
+    opacity: 0;
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-stat-label {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hero-stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
 }
 
 .hero-desc {

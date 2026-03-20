@@ -143,16 +143,38 @@
                     <span class="context-sep">•</span>
                     <span class="context-tag">Dubai, UAE</span>
                 </div>
-                <h1 class="hero-headline">
-                    I design and build<br>
-                    <span class="highlight">scalable systems</span><span class="cursor"></span>
-                </h1>
+                <div class="hero-animated-text">
+                    <span class="hero-text-line">I design and build</span>
+                    <div class="hero-word-container">
+                        <span class="hero-word active">scalable systems</span>
+                        <span class="hero-word">distributed APIs</span>
+                        <span class="hero-word">real-time apps</span>
+                        <span class="hero-word">cloud infrastructure</span>
+                        <span class="hero-word">data pipelines</span>
+                    </div>
+                </div>
                 <p class="hero-desc">
                     Specializing in distributed architectures, real-time applications, and performance-critical systems. I help startups and engineering teams build products that handle millions of requests without breaking a sweat.
                 </p>
                 <div class="hero-cta">
-                    <a href="#about" class="btn btn-primary">Learn More</a>
-                    <a href="#projects" class="btn btn-secondary">View Projects</a>
+                    <a href="#about" class="btn btn-primary magnetic-btn">Learn More</a>
+                    <a href="#projects" class="btn btn-secondary magnetic-btn">View Projects</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-num" data-count="5">0</span>
+                        <span class="hero-stat-label">Years Exp</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-num" data-count="10">0</span>
+                        <span class="hero-stat-label">Projects</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-num" data-count="500">0</span>
+                        <span class="hero-stat-label">Connections</span>
+                    </div>
                 </div>
             </div>
             <div class="hero-scroll">
@@ -2291,6 +2313,39 @@
                 }, 50);
             }
         });
+        
+        const heroStats = document.querySelectorAll('.hero-stat-num');
+        heroStats.forEach(stat => {
+            const target = parseInt(stat.dataset.count);
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                stat.textContent = Math.floor(current) + '+';
+            }, 40);
+        });
+        
+        const words = document.querySelectorAll('.hero-word');
+        let currentWordIndex = 0;
+        
+        function rotateWords() {
+            words.forEach((word, index) => {
+                word.classList.remove('active');
+                if (index === currentWordIndex) {
+                    word.classList.add('active');
+                }
+            });
+            
+            currentWordIndex = (currentWordIndex + 1) % words.length;
+        }
+        
+        if (words.length > 0) {
+            setInterval(rotateWords, 2500);
+        }
     </script>
 </body>
 </html>
