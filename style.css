@@ -99,6 +99,23 @@ body {
     animation: pageLoad 0.4s ease;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-1);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #764ba2;
+}
+
 @keyframes pageLoad {
     from {
         opacity: 0;
@@ -177,6 +194,37 @@ body {
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes borderGlow {
+    0%, 100% {
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12), 0 0 0 0 rgba(102, 126, 234, 0);
+    }
+    50% {
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12), 0 0 30px 5px rgba(102, 126, 234, 0.2);
     }
 }
 
@@ -743,9 +791,30 @@ small, .text-sm {
     font-weight: 500;
     color: var(--text-secondary);
     transition: color 0.2s;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-1);
+    transition: width 0.3s ease;
 }
 
 .nav-links a:hover {
+    color: var(--text-primary);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a.active {
     color: var(--text-primary);
 }
 
@@ -1331,8 +1400,9 @@ section {
 }
 
 .project-card:hover {
-    border-color: var(--text-muted);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 30px rgba(102, 126, 234, 0.1);
+    border-color: #667eea;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12), 0 0 40px rgba(102, 126, 234, 0.15);
+    animation: borderGlow 2s ease-in-out infinite;
 }
 
 .project-card:hover::before {
@@ -2612,29 +2682,29 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    border: 1px solid var(--border);
+    background: var(--gradient-1);
+    color: white;
+    border: none;
     border-radius: 50%;
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
 }
 
 .back-to-top.visible {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
-    .back-to-top:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
+.back-to-top:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+}
 
 .cookie-banner {
     position: fixed;
