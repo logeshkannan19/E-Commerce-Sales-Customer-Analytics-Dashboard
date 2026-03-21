@@ -1411,6 +1411,28 @@ small, .text-sm {
     }
 }
 
+/* 3D Card Tilt Effect */
+.project-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card .card-inner {
+    transform: translateZ(0);
+    transition: transform 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .project-card:hover {
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+    }
+    
+    .project-card.tilt {
+        transform: perspective(1000px) rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg)) scale3d(1.02, 1.02, 1.02);
+    }
+}
+
 .hero-headline .highlight {
     background: var(--gradient-1);
     background-size: 200% 200%;
