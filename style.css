@@ -4559,6 +4559,7 @@ img {
     background: var(--bg-secondary);
     z-index: 1002;
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s ease;
 }
 
@@ -4570,7 +4571,12 @@ img {
     height: 100%;
     background: linear-gradient(90deg, var(--navy), #667eea);
     width: 0%;
-    transition: width 0.1s linear;
+    opacity: 0;
+    transition: width 0.1s linear, opacity 0.3s ease;
+}
+
+.reading-progress.visible .reading-progress-bar {
+    opacity: 1;
 }
 
 .reading-progress-text {
@@ -4582,6 +4588,7 @@ img {
     font-weight: 600;
     color: var(--text-muted);
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s ease;
 }
 
