@@ -286,26 +286,6 @@
                         Download Resume
                     </a>
                 </div>
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <span class="hero-stat-num" data-count="5">0</span>
-                        <span class="hero-stat-label">Years Exp</span>
-                    </div>
-                    <div class="hero-stat-divider"></div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-num" data-count="10">0</span>
-                        <span class="hero-stat-label">Projects</span>
-                    </div>
-                    <div class="hero-stat-divider"></div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-num" data-count="500">0</span>
-                        <span class="hero-stat-label">Connections</span>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-scroll">
-                <span>Scroll to explore</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
             </div>
         </section>
 
@@ -2345,21 +2325,6 @@
             
             greetingTag.textContent = greeting;
         }
-        
-        const heroStats = document.querySelectorAll('.hero-stat-num');
-        heroStats.forEach(stat => {
-            const target = parseInt(stat.dataset.count);
-            let current = 0;
-            const increment = target / 50;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                stat.textContent = Math.floor(current) + '+';
-            }, 40);
-        });
         
         const words = document.querySelectorAll('.hero-word');
         let currentWordIndex = 0;
