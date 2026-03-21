@@ -254,7 +254,7 @@
     </nav>
 
     <main>
-        <section class="hero" id="hero">
+        <section class="hero section-fade" id="hero">
             <canvas id="heroLogoCanvas" class="hero-logo-canvas"></canvas>
             <div class="hero-logo-overlay">
                 <div class="hero-logo-text">
@@ -297,7 +297,7 @@
             </div>
         </section>
 
-        <section class="about" id="about">
+        <section class="about section-fade" id="about">
             <div class="section-header">
                 <span class="section-label">01 — What I Do</span>
                 <h2 class="section-title">I solve systems problems.</h2>
@@ -346,7 +346,7 @@
             </div>
         </section>
 
-        <section class="fun-facts" id="fun-facts">
+        <section class="fun-facts section-fade" id="fun-facts">
             <div class="section-header">
                 <span class="section-label">01.5 — Beyond Code</span>
                 <h2 class="section-title">What I do for fun</h2>
@@ -383,7 +383,7 @@
             </div>
         </section>
 
-        <section class="projects" id="projects">
+        <section class="projects section-fade" id="projects">
             <div class="section-header">
                 <span class="section-label">02 — Projects</span>
                 <h2 class="section-title">Production systems</h2>
@@ -497,7 +497,7 @@
             </div>
         </section>
 
-        <section class="impact" id="impact">
+        <section class="impact section-fade" id="impact">
             <div class="section-header">
                 <span class="section-label">03 — Impact</span>
                 <h2 class="section-title">By the numbers</h2>
@@ -538,7 +538,7 @@
             </div>
         </section>
 
-        <section class="open-source" id="opensource">
+        <section class="open-source section-fade" id="opensource">
             <div class="section-header">
                 <span class="section-label">03 — Open Source</span>
                 <h2 class="section-title">Contributions & Tools</h2>
@@ -581,7 +581,7 @@
             </div>
         </section>
 
-        <section class="skills" id="skills">
+        <section class="skills section-fade" id="skills">
             <div class="section-header">
                 <span class="section-label">04 — Skills</span>
                 <h2 class="section-title">Technical stack</h2>
@@ -783,7 +783,7 @@
             </div>
         </section>
 
-        <section class="experience" id="experience">
+        <section class="experience section-fade" id="experience">
             <div class="section-header">
                 <span class="section-label">05 — Experience</span>
                 <h2 class="section-title">Where I've worked</h2>
@@ -808,7 +808,7 @@
             </div>
         </section>
 
-        <section class="education" id="education">
+        <section class="education section-fade" id="education">
             <div class="section-header">
                 <span class="section-label">06 — Education</span>
                 <h2 class="section-title">Academic background</h2>
@@ -827,7 +827,7 @@
             </div>
         </section>
 
-        <section class="contact" id="contact">
+        <section class="contact section-fade" id="contact">
             <div class="contact-content">
                 <div class="contact-left">
                     <div class="contact-profile">
@@ -2846,6 +2846,45 @@
             parallaxElements.forEach((el, index) => {
                 const speed = 0.1 + (index * 0.05);
                 el.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+        });
+        
+        // Smooth Section Fade
+        const sections = document.querySelectorAll('.section-fade');
+        
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    entry.target.classList.remove('fade-out');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '-50px 0px' });
+        
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+        
+        // Fade out sections that are leaving viewport
+        window.addEventListener('scroll', () => {
+            const viewportHeight = window.innerHeight;
+            const scrollY = window.scrollY;
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const sectionTop = rect.top;
+                const sectionHeight = rect.height;
+                
+                // Section is above viewport (leaving)
+                if (rect.bottom < 0) {
+                    section.classList.add('fade-out');
+                    section.classList.remove('fade-in');
+                }
+                // Section is below viewport (not yet reached)
+                else if (rect.top > viewportHeight) {
+                    section.classList.add('fade-out');
+                    section.classList.remove('fade-in');
+                }
             });
         });
     </script>
