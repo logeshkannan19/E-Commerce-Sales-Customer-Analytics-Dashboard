@@ -2306,6 +2306,8 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const el = entry.target;
+                    const suffixEl = el.nextElementSibling;
+                    const suffix = suffixEl && suffixEl.classList.contains('stat-suffix') ? suffixEl.textContent : '';
                     const target = parseFloat(el.dataset.target);
                     let current = 0;
                     const duration = 2000;
@@ -2318,18 +2320,18 @@
                         current = target * easeProgress;
                         
                         if (target % 1 !== 0) {
-                            el.textContent = current.toFixed(1);
+                            el.textContent = current.toFixed(1) + suffix;
                         } else {
-                            el.textContent = Math.floor(current);
+                            el.textContent = Math.floor(current) + suffix;
                         }
                         
                         if (progress < 1) {
                             requestAnimationFrame(updateCount);
                         } else {
                             if (target % 1 !== 0) {
-                                el.textContent = target.toFixed(1);
+                                el.textContent = target.toFixed(1) + suffix;
                             } else {
-                                el.textContent = target;
+                                el.textContent = target + suffix;
                             }
                         }
                     }
@@ -2338,7 +2340,7 @@
                     bigStatsObserver.unobserve(el);
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.1 });
         
         statCounts.forEach(stat => bigStatsObserver.observe(stat));
         
