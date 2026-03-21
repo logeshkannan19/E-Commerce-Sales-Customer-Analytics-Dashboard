@@ -2618,6 +2618,19 @@
         
         scrollRevealElements.forEach(el => scrollRevealObserver.observe(el));
         
+        // Animated Skill Bars
+        const skillBars = document.querySelectorAll('.skill-bar-fill');
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    skillObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        skillBars.forEach(bar => skillObserver.observe(bar));
+        
         const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
         const sections = document.querySelectorAll('section[id]');
         

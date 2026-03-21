@@ -1359,9 +1359,56 @@ small, .text-sm {
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.hero-word.active {
+.scroll-reveal.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Animated Skill Bars */
+.skill-bar-fill {
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-bar-fill.animate {
+    width: var(--skill-level);
+}
+
+/* Staggered Project Grid */
+@media (min-width: 768px) {
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 24px;
+    }
+    
+    .projects-grid .project-card:nth-child(1) {
+        grid-column: span 7;
+    }
+    
+    .projects-grid .project-card:nth-child(2) {
+        grid-column: span 5;
+    }
+    
+    .projects-grid .project-card:nth-child(3) {
+        grid-column: span 5;
+    }
+    
+    .projects-grid .project-card:nth-child(4) {
+        grid-column: span 7;
+    }
+    
+    .project-card {
+        height: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .projects-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
 }
 
 .hero-headline .highlight {
