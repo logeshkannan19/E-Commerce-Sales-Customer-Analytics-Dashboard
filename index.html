@@ -338,42 +338,6 @@
             </div>
         </section>
 
-        <section class="big-stats" id="big-stats">
-            <div class="big-stats-container">
-                <div class="big-stat-item">
-                    <span class="big-stat-number">
-                        <span class="stat-count" data-target="200">0</span><span class="stat-suffix">+</span>
-                    </span>
-                    <span class="big-stat-label">Cups of Coffee</span>
-                    <span class="big-stat-desc">Fuel behind late-night builds</span>
-                </div>
-                <div class="big-stat-divider"></div>
-                <div class="big-stat-item">
-                    <span class="big-stat-number">
-                        <span class="stat-count" data-target="1000">0</span><span class="stat-suffix">+</span>
-                    </span>
-                    <span class="big-stat-label">Commits This Year</span>
-                    <span class="big-stat-desc">Consistent development & iteration</span>
-                </div>
-                <div class="big-stat-divider"></div>
-                <div class="big-stat-item">
-                    <span class="big-stat-number">
-                        <span class="stat-count" data-target="8">0</span><span class="stat-suffix">+</span>
-                    </span>
-                    <span class="big-stat-label">Projects Shipped</span>
-                    <span class="big-stat-desc">From concept to production</span>
-                </div>
-                <div class="big-stat-divider"></div>
-                <div class="big-stat-item">
-                    <span class="big-stat-number">
-                        <span class="stat-count" data-target="50">0</span><span class="stat-suffix">K+</span>
-                    </span>
-                    <span class="big-stat-label">Lines of Code</span>
-                    <span class="big-stat-desc">Across backend, systems, and ML</span>
-                </div>
-            </div>
-        </section>
-
         <section class="fun-facts" id="fun-facts">
             <div class="section-header">
                 <span class="section-label">01.5 — Beyond Code</span>
@@ -407,24 +371,6 @@
                     </div>
                     <h3>Entrepreneurial Spirit</h3>
                     <p>Always ideating the next big thing. Currently building Veloxa to revolutionize hyperlocal delivery.</p>
-                </div>
-            </div>
-            <div class="fun-stats-row">
-                <div class="fun-stat">
-                    <span class="fun-stat-num" data-count="200">0</span>
-                    <span class="fun-stat-label">Cups of Coffee</span>
-                </div>
-                <div class="fun-stat">
-                    <span class="fun-stat-num" data-count="1000">0</span>
-                    <span class="fun-stat-label">Commits This Year</span>
-                </div>
-                <div class="fun-stat">
-                    <span class="fun-stat-num" data-count="8">0</span>
-                    <span class="fun-stat-label">Projects Shipped</span>
-                </div>
-                <div class="fun-stat">
-                    <span class="fun-stat-num" data-count="50" data-suffix="K+">0</span>
-                    <span class="fun-stat-label">Lines of Code</span>
                 </div>
             </div>
         </section>
@@ -2343,77 +2289,6 @@
         if (words.length > 0) {
             setInterval(rotateWords, 2500);
         }
-        
-        const funStats = document.querySelectorAll('.fun-stat-num');
-        const funObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = entry.target.dataset.count;
-                    const suffix = entry.target.dataset.suffix || '+';
-                    if (target === '∞') {
-                        entry.target.textContent = '∞';
-                    } else {
-                        let current = 0;
-                        const num = parseInt(target);
-                        const increment = num / 40;
-                        const timer = setInterval(() => {
-                            current += increment;
-                            if (current >= num) {
-                                current = num;
-                                clearInterval(timer);
-                            }
-                            entry.target.textContent = Math.floor(current) + suffix;
-                        }, 50);
-                    }
-                    funObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        funStats.forEach(stat => funObserver.observe(stat));
-        
-        const statCounts = document.querySelectorAll('.stat-count');
-        const bigStatsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const suffixEl = el.nextElementSibling;
-                    const suffix = suffixEl && suffixEl.classList.contains('stat-suffix') ? suffixEl.textContent : '';
-                    const target = parseFloat(el.dataset.target);
-                    let current = 0;
-                    const duration = 2000;
-                    const startTime = performance.now();
-                    
-                    function updateCount(currentTime) {
-                        const elapsed = currentTime - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const easeProgress = 1 - Math.pow(1 - progress, 3);
-                        current = target * easeProgress;
-                        
-                        if (target % 1 !== 0) {
-                            el.textContent = current.toFixed(1) + suffix;
-                        } else {
-                            el.textContent = Math.floor(current) + suffix;
-                        }
-                        
-                        if (progress < 1) {
-                            requestAnimationFrame(updateCount);
-                        } else {
-                            if (target % 1 !== 0) {
-                                el.textContent = target.toFixed(1) + suffix;
-                            } else {
-                                el.textContent = target + suffix;
-                            }
-                        }
-                    }
-                    
-                    requestAnimationFrame(updateCount);
-                    bigStatsObserver.unobserve(el);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        statCounts.forEach(stat => bigStatsObserver.observe(stat));
         
         // Desktop Quick Navigation
         const quickNav = document.getElementById('quickNav');
