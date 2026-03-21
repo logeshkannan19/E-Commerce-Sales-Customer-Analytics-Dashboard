@@ -94,8 +94,16 @@
         <div class="floating-shape floating-shape-2"></div>
         <div class="floating-shape floating-shape-3"></div>
         <div class="floating-shape floating-shape-4"></div>
+        <div class="floating-shape floating-shape-5"></div>
+        <div class="floating-shape floating-shape-6"></div>
     </div>
     <div class="background-grid"></div>
+    
+    <!-- Particle Constellation Canvas -->
+    <canvas id="constellationCanvas"></canvas>
+    
+    <!-- Cursor Trail Canvas -->
+    <canvas id="cursorTrailCanvas"></canvas>
     <div class="page-loader" id="pageLoader">
         <div class="loader-logo">LK</div>
         <div class="loader-bar">
@@ -2724,6 +2732,122 @@
             requestAnimationFrame(animateTrail);
         }
         animateTrail();
+        
+        // Particle Constellation
+        const constellationCanvas = document.getElementById('constellationCanvas');
+        const constellationCtx = constellationCanvas.getContext('2d');
+        
+        function resizeConstellationCanvas() {
+            constellationCanvas.width = window.innerWidth;
+            constellationCanvas.height = window.innerHeight;
+        }
+        resizeConstellationCanvas();
+        window.addEventListener('resize', resizeConstellationCanvas);
+        
+        const constellationParticles = [];
+        const constellationCount = 80;
+        const connectionDistance = 150;
+        const mouseInfluenceRadius = 200;
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        class ConstellationParticle {
+            constructor() {
+                this.x = Math.random() * constellationCanvas.width;
+                this.y = Math.random() * constellationCanvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x < 0 || this.x > constellationCanvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > constellationCanvas.height) this.speedY *= -1;
+                
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < mouseInfluenceRadius) {
+                    const force = (mouseInfluenceRadius - distance) / mouseInfluenceRadius;
+                    this.x -= dx * force * 0.02;
+                    this.y -= dy * force * 0.02;
+                }
+            }
+            
+            draw() {
+                constellationCtx.beginPath();
+                constellationCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                constellationCtx.fillStyle = `rgba(30, 58, 95, ${this.opacity})`;
+                constellationCtx.fill();
+            }
+        }
+        
+        for (let i = 0; i < constellationCount; i++) {
+            constellationParticles.push(new ConstellationParticle());
+        }
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function drawConstellation() {
+            constellationCtx.clearRect(0, 0, constellationCanvas.width, constellationCanvas.height);
+            
+            constellationParticles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            for (let i = 0; i < constellationParticles.length; i++) {
+                for (let j = i + 1; j < constellationParticles.length; j++) {
+                    const dx = constellationParticles[i].x - constellationParticles[j].x;
+                    const dy = constellationParticles[i].y - constellationParticles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < connectionDistance) {
+                        constellationCtx.beginPath();
+                        constellationCtx.moveTo(constellationParticles[i].x, constellationParticles[i].y);
+                        constellationCtx.lineTo(constellationParticles[j].x, constellationParticles[j].y);
+                        constellationCtx.strokeStyle = `rgba(30, 58, 95, ${0.15 * (1 - distance / connectionDistance)})`;
+                        constellationCtx.lineWidth = 0.5;
+                        constellationCtx.stroke();
+                    }
+                }
+                
+                const mdx = mouseX - constellationParticles[i].x;
+                const mdy = mouseY - constellationParticles[i].y;
+                const mDistance = Math.sqrt(mdx * mdx + mdy * mdy);
+                
+                if (mDistance < mouseInfluenceRadius) {
+                    constellationCtx.beginPath();
+                    constellationCtx.moveTo(constellationParticles[i].x, constellationParticles[i].y);
+                    constellationCtx.lineTo(mouseX, mouseY);
+                    constellationCtx.strokeStyle = `rgba(30, 58, 95, ${0.1 * (1 - mDistance / mouseInfluenceRadius)})`;
+                    constellationCtx.lineWidth = 0.5;
+                    constellationCtx.stroke();
+                }
+            }
+            
+            requestAnimationFrame(drawConstellation);
+        }
+        drawConstellation();
+        
+        // Parallax Effect
+        const parallaxElements = document.querySelectorAll('.morphing-bg, .floating-elements, .background-grid');
+        
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            parallaxElements.forEach((el, index) => {
+                const speed = 0.1 + (index * 0.05);
+                el.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+        });
     </script>
 </body>
 </html>

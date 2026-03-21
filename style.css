@@ -160,70 +160,104 @@ body {
 
 .floating-shape {
     position: absolute;
-    opacity: 0.04;
+    opacity: 0.03;
+    pointer-events: none;
 }
 
 .floating-shape-1 {
-    top: 15%;
-    left: 5%;
-    width: 200px;
-    height: 200px;
+    top: 10%;
+    left: 8%;
+    width: 300px;
+    height: 300px;
     border: 1px solid var(--navy);
     border-radius: 50%;
-    animation: floatShape1 20s ease-in-out infinite;
+    animation: floatShape1 25s ease-in-out infinite;
 }
 
 .floating-shape-2 {
-    top: 40%;
-    right: 8%;
-    width: 150px;
-    height: 150px;
+    top: 50%;
+    right: 5%;
+    width: 200px;
+    height: 200px;
     border: 1px solid var(--burgundy);
     transform: rotate(45deg);
-    animation: floatShape2 25s ease-in-out infinite;
+    animation: floatShape2 30s ease-in-out infinite;
 }
 
 .floating-shape-3 {
-    bottom: 20%;
-    left: 10%;
-    width: 100px;
-    height: 100px;
-    background: var(--gold);
-    border-radius: 50%;
+    bottom: 15%;
+    left: 15%;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, var(--gold), var(--burgundy));
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     opacity: 0.02;
-    animation: floatShape3 18s ease-in-out infinite;
+    animation: floatShape3 22s ease-in-out infinite;
 }
 
 .floating-shape-4 {
-    top: 60%;
-    right: 15%;
+    top: 70%;
+    right: 20%;
+    width: 120px;
+    height: 120px;
+    border: 1px solid var(--forest);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    animation: floatShape4 28s ease-in-out infinite;
+}
+
+.floating-shape-5 {
+    top: 30%;
+    left: 60%;
     width: 80px;
     height: 80px;
-    border: 1px solid var(--forest);
-    animation: floatShape4 22s ease-in-out infinite;
+    border: 1px solid var(--navy);
+    border-radius: 50%;
+    animation: floatShape5 20s ease-in-out infinite;
+}
+
+.floating-shape-6 {
+    bottom: 40%;
+    left: 5%;
+    width: 60px;
+    height: 60px;
+    background: var(--burgundy);
+    transform: rotate(45deg);
+    opacity: 0.015;
+    animation: floatShape6 24s ease-in-out infinite;
 }
 
 @keyframes floatShape1 {
     0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(20px, -30px) rotate(90deg); }
-    50% { transform: translate(-10px, 20px) rotate(180deg); }
-    75% { transform: translate(30px, 10px) rotate(270deg); }
+    25% { transform: translate(30px, -40px) rotate(90deg); }
+    50% { transform: translate(-20px, 30px) rotate(180deg); }
+    75% { transform: translate(40px, 20px) rotate(270deg); }
 }
 
 @keyframes floatShape2 {
     0%, 100% { transform: rotate(45deg) scale(1); }
-    50% { transform: rotate(60deg) scale(1.1); }
+    50% { transform: rotate(75deg) scale(1.15); }
 }
 
 @keyframes floatShape3 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.02; }
-    50% { transform: translate(30px, -20px) scale(1.2); opacity: 0.04; }
+    0%, 100% { transform: translate(0, 0) scale(1); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    50% { transform: translate(40px, -30px) scale(1.3); border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
 }
 
 @keyframes floatShape4 {
     0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(-20px, 20px) rotate(120deg); }
-    66% { transform: translate(20px, -10px) rotate(240deg); }
+    33% { transform: translate(-30px, 30px) rotate(120deg); }
+    66% { transform: translate(30px, -20px) rotate(240deg); }
+}
+
+@keyframes floatShape5 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(20px, 40px); }
+    66% { transform: translate(-20px, -20px); }
+}
+
+@keyframes floatShape6 {
+    0%, 100% { transform: rotate(45deg) scale(1); }
+    50% { transform: rotate(90deg) scale(1.5); }
 }
 
 .background-grid {
@@ -233,11 +267,40 @@ body {
     width: 100%;
     height: 100%;
     background-image: 
-        linear-gradient(rgba(30, 58, 95, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(30, 58, 95, 0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
+        linear-gradient(rgba(30, 58, 95, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 58, 95, 0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
     pointer-events: none;
     z-index: 0;
+}
+
+/* Particle Constellation Canvas */
+#constellationCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+/* Cursor Trail Canvas */
+#cursorTrailCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* Parallax container for sections */
+section {
+    position: relative;
+    z-index: 2;
 }
 
 .morphing-bg {
@@ -254,55 +317,59 @@ body {
 .morphing-shape {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.15;
-    animation: morph 20s ease-in-out infinite;
+    filter: blur(100px);
+    opacity: 0.12;
+    animation: morph 25s ease-in-out infinite;
 }
 
 .morphing-shape-1 {
-    width: 600px;
-    height: 600px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    top: -200px;
-    right: -200px;
+    width: 800px;
+    height: 800px;
+    background: linear-gradient(135deg, var(--navy), #667eea);
+    top: -300px;
+    right: -300px;
     animation-delay: 0s;
+    animation: morphShape1 30s ease-in-out infinite;
 }
 
 .morphing-shape-2 {
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-    bottom: 10%;
-    left: -100px;
-    animation-delay: -7s;
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(135deg, var(--burgundy), #f5576c);
+    bottom: -200px;
+    left: -200px;
+    animation-delay: -10s;
+    animation: morphShape2 25s ease-in-out infinite;
 }
 
 .morphing-shape-3 {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
-    top: 50%;
-    right: 10%;
-    animation-delay: -14s;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, var(--forest), #667eea);
+    top: 40%;
+    left: 30%;
+    animation-delay: -5s;
+    animation: morphShape3 35s ease-in-out infinite;
 }
 
-@keyframes morph {
-    0%, 100% {
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        transform: translate(0, 0) scale(1);
-    }
-    25% {
-        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-        transform: translate(20px, -30px) scale(1.05);
-    }
-    50% {
-        border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%;
-        transform: translate(-20px, 20px) scale(0.95);
-    }
-    75% {
-        border-radius: 60% 40% 60% 40% / 60% 40% 60% 40%;
-        transform: translate(20px, 30px) scale(1.02);
-    }
+@keyframes morphShape1 {
+    0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    25% { transform: translate(-50px, 50px) scale(1.1) rotate(45deg); }
+    50% { transform: translate(30px, -30px) scale(0.9) rotate(90deg); }
+    75% { transform: translate(-20px, -40px) scale(1.05) rotate(135deg); }
+}
+
+@keyframes morphShape2 {
+    0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    33% { transform: translate(60px, -40px) scale(1.15) rotate(-45deg); }
+    66% { transform: translate(-40px, 30px) scale(0.85) rotate(-90deg); }
+}
+
+@keyframes morphShape3 {
+    0%, 100% { transform: translate(0, 0) scale(1); border-radius: 50%; }
+    25% { transform: translate(40px, 60px) scale(1.2); border-radius: 40% 60% 60% 40%; }
+    50% { transform: translate(-30px, -20px) scale(0.8); border-radius: 60% 40% 40% 60%; }
+    75% { transform: translate(50px, -40px) scale(1.1); border-radius: 50%; }
 }
 
 .glow-text {
