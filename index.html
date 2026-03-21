@@ -3159,6 +3159,68 @@
                 generateGrain();
             });
         })();
+        
+        // Enhanced Cursor Hover Effects
+        (function() {
+            const cursorRing = document.getElementById('cursorRing');
+            const cursorDot = document.getElementById('cursorDot');
+            
+            if (!cursorRing || !cursorDot) return;
+            
+            let mouseX = 0, mouseY = 0;
+            let ringX = 0, ringY = 0;
+            const ringSpeed = 0.15;
+            
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                cursorDot.style.left = mouseX + 'px';
+                cursorDot.style.top = mouseY + 'px';
+            });
+            
+            function animateRing() {
+                ringX += (mouseX - ringX) * ringSpeed;
+                ringY += (mouseY - ringY) * ringSpeed;
+                
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+                
+                requestAnimationFrame(animateRing);
+            }
+            animateRing();
+            
+            document.addEventListener('mouseenter', () => {
+                cursorDot.style.opacity = '1';
+                cursorRing.style.opacity = '1';
+            });
+            
+            document.addEventListener('mouseleave', () => {
+                cursorDot.style.opacity = '0';
+                cursorRing.style.opacity = '0';
+            });
+            
+            const hoverClasses = {
+                'cursor-hover-card': '.project-card, .experience-card',
+                'cursor-hover-link': 'a:not(button), .nav-link',
+                'cursor-hover-button': 'button, .btn, .mobile-nav-item',
+                'cursor-hover-zoom': '.gallery-item, [data-magnify], img:not(.no-zoom)',
+                'cursor-hover-text': 'p, h1, h2, h3, h4, h5, h6, span, li',
+                'cursor-hover-grab': '[draggable="true"], .draggable'
+            };
+            
+            Object.entries(hoverClasses).forEach(([className, selector]) => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursorRing.classList.add(className);
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursorRing.classList.remove(className);
+                    });
+                });
+            });
+        })();
     </script>
 </body>
 </html>
