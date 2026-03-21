@@ -118,6 +118,53 @@
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
+    
+    <!-- Desktop Quick Nav -->
+    <nav class="quick-nav" id="quickNav">
+        <a href="#hero" class="quick-nav-dot" data-section="hero" title="Home"></a>
+        <a href="#about" class="quick-nav-dot" data-section="about" title="About"></a>
+        <a href="#projects" class="quick-nav-dot" data-section="projects" title="Projects"></a>
+        <a href="#impact" class="quick-nav-dot" data-section="impact" title="Impact"></a>
+        <a href="#skills" class="quick-nav-dot" data-section="skills" title="Skills"></a>
+        <a href="#contact" class="quick-nav-dot" data-section="contact" title="Contact"></a>
+    </nav>
+    
+    <!-- Keyboard Shortcuts Panel -->
+    <div class="shortcuts-panel" id="shortcutsPanel">
+        <div class="shortcuts-header">
+            <span>Keyboard Shortcuts</span>
+            <button class="shortcuts-close" id="shortcutsClose">&times;</button>
+        </div>
+        <div class="shortcuts-list">
+            <div class="shortcut-item">
+                <kbd>?</kbd>
+                <span>Show shortcuts</span>
+            </div>
+            <div class="shortcut-item">
+                <kbd>1</kbd> - <kbd>6</kbd>
+                <span>Jump to section</span>
+            </div>
+            <div class="shortcut-item">
+                <kbd>T</kbd>
+                <span>Toggle theme</span>
+            </div>
+            <div class="shortcut-item">
+                <kbd>/</kbd>
+                <span>Search</span>
+            </div>
+            <div class="shortcut-item">
+                <kbd>Esc</kbd>
+                <span>Close panel</span>
+            </div>
+            <div class="shortcut-item">
+                <kbd>Home</kbd>
+                <span>Back to top</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="shortcuts-hint" id="shortcutsHint">Press <kbd>?</kbd> for shortcuts</div>
+    
     <div class="waves-container">
         <svg class="waves" viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path class="wave wave1" d="M0,160L48,170.7C96,181,192,203,288,197.3C384,192,480,160,576,165.3C672,171,768,213,864,218.7C960,224,1056,192,1152,165.3C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
@@ -2343,6 +2390,97 @@
         }, { threshold: 0.1 });
         
         statCounts.forEach(stat => bigStatsObserver.observe(stat));
+        
+        // Desktop Quick Navigation
+        const quickNav = document.getElementById('quickNav');
+        const quickNavDots = document.querySelectorAll('.quick-nav-dot');
+        
+        function updateQuickNav() {
+            const sections = document.querySelectorAll('section[id]');
+            let current = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            quickNavDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('href') === '#' + current) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateQuickNav);
+        updateQuickNav();
+        
+        // Keyboard Shortcuts
+        const shortcutsPanel = document.getElementById('shortcutsPanel');
+        const shortcutsClose = document.getElementById('shortcutsClose');
+        const shortcutsHint = document.getElementById('shortcutsHint');
+        
+        function showShortcuts() {
+            shortcutsPanel.classList.add('visible');
+        }
+        
+        function hideShortcuts() {
+            shortcutsPanel.classList.remove('visible');
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '?' && !e.shiftKey) {
+                e.preventDefault();
+                showShortcuts();
+                shortcutsHint.classList.add('hidden');
+            }
+            
+            if (e.key === 'Escape') {
+                hideShortcuts();
+            }
+            
+            // Section shortcuts
+            const sectionKeys = { '1': 'hero', '2': 'about', '3': 'projects', '4': 'impact', '5': 'skills', '6': 'contact' };
+            if (sectionKeys[e.key] && !e.ctrlKey && !e.metaKey) {
+                const section = document.getElementById(sectionKeys[e.key]);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            
+            // Theme toggle with T
+            if (e.key === 't' || e.key === 'T') {
+                if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+                    document.getElementById('themeToggle').click();
+                }
+            }
+            
+            // Search with /
+            if (e.key === '/') {
+                if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    document.getElementById('searchInput').focus();
+                }
+            }
+            
+            // Home to scroll to top
+            if (e.key === 'Home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+        
+        if (shortcutsClose) {
+            shortcutsClose.addEventListener('click', hideShortcuts);
+        }
+        
+        // Hide hint after first interaction
+        document.addEventListener('mousemove', () => {
+            setTimeout(() => {
+                shortcutsHint.classList.add('hidden');
+            }, 3000);
+        }, { once: true });
         
         const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
         const sections = document.querySelectorAll('section[id]');
