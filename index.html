@@ -325,19 +325,19 @@
             </div>
             <div class="fun-stats-row">
                 <div class="fun-stat">
-                    <span class="fun-stat-num" data-count="1500">0</span>
+                    <span class="fun-stat-num" data-count="200">0</span>
                     <span class="fun-stat-label">Cups of Coffee</span>
                 </div>
                 <div class="fun-stat">
-                    <span class="fun-stat-num" data-count="200">0</span>
+                    <span class="fun-stat-num" data-count="1000">0</span>
                     <span class="fun-stat-label">Commits This Year</span>
                 </div>
                 <div class="fun-stat">
-                    <span class="fun-stat-num" data-count="3">0</span>
+                    <span class="fun-stat-num" data-count="8">0</span>
                     <span class="fun-stat-label">Projects Shipped</span>
                 </div>
                 <div class="fun-stat">
-                    <span class="fun-stat-num" data-count="∞">0</span>
+                    <span class="fun-stat-num" data-count="50" data-suffix="K+">0</span>
                     <span class="fun-stat-label">Lines of Code</span>
                 </div>
             </div>
@@ -2278,6 +2278,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const target = entry.target.dataset.count;
+                    const suffix = entry.target.dataset.suffix || '+';
                     if (target === '∞') {
                         entry.target.textContent = '∞';
                     } else {
@@ -2290,7 +2291,7 @@
                                 current = num;
                                 clearInterval(timer);
                             }
-                            entry.target.textContent = Math.floor(current) + '+';
+                            entry.target.textContent = Math.floor(current) + suffix;
                         }, 50);
                     }
                     funObserver.unobserve(entry.target);
