@@ -4704,3 +4704,374 @@ img {
         transform: none !important;
     }
 }
+
+/* Mobile Bottom Navigation */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border);
+    padding: 8px 16px;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+    z-index: 95;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .mobile-bottom-nav {
+        display: flex;
+    }
+    
+    .footer {
+        padding-bottom: 100px;
+    }
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.mobile-nav-item svg {
+    transition: transform 0.2s ease;
+}
+
+.mobile-nav-item span {
+    font-size: 0.625rem;
+    font-weight: 500;
+}
+
+.mobile-nav-item:hover,
+.mobile-nav-item.active {
+    color: var(--navy);
+}
+
+.mobile-nav-item.active svg {
+    transform: scale(1.1);
+}
+
+.mobile-share-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.mobile-share-btn span {
+    font-size: 0.625rem;
+    font-weight: 500;
+}
+
+.mobile-share-btn:hover {
+    color: var(--navy);
+}
+
+/* PWA Install Prompt */
+.pwa-install-prompt {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    left: 16px;
+    right: 16px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    z-index: 96;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.4s ease;
+}
+
+.pwa-install-prompt.visible {
+    display: block;
+}
+
+.pwa-prompt-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pwa-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--gradient-1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.pwa-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pwa-title {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+}
+
+.pwa-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.pwa-install-btn {
+    padding: 10px 20px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pwa-install-btn:hover {
+    background: #162d4a;
+    transform: scale(1.02);
+}
+
+.pwa-dismiss-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+}
+
+/* Share Modal */
+.share-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.share-modal.visible {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.share-modal-content {
+    background: var(--bg-primary);
+    border-radius: 24px 24px 0 0;
+    padding: 32px;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    animation: slideUp 0.4s ease;
+}
+
+.share-modal-content h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.share-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.share-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.share-option:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+}
+
+.share-option.twitter:hover {
+    background: #1DA1F2;
+    border-color: #1DA1F2;
+    color: white;
+}
+
+.share-option.linkedin:hover {
+    background: #0A66C2;
+    border-color: #0A66C2;
+    color: white;
+}
+
+.share-option.copy:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: white;
+}
+
+.share-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--bg-secondary);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+/* Performance Mode - Reduce animations on mobile */
+@media (max-width: 768px) {
+    .morphing-bg,
+    .floating-elements,
+    #constellationCanvas,
+    #cursorTrailCanvas,
+    .cursor-dot,
+    .cursor-ring {
+        display: none !important;
+    }
+    
+    .background-grid {
+        opacity: 0.5;
+    }
+    
+    .project-card.tilt {
+        transform: none !important;
+    }
+    
+    .skill-bar-fill {
+        width: var(--skill-level) !important;
+    }
+    
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Touch-friendly tap targets */
+@media (max-width: 768px) {
+    .btn {
+        min-height: 48px;
+        min-width: 48px;
+    }
+    
+    .project-card {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .project-card:active {
+        transform: scale(0.98);
+    }
+    
+    a, button {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .contact-link {
+        min-height: 48px;
+    }
+}
+
+/* Swipe indicator */
+.swipe-indicator {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    z-index: 90;
+    animation: fadeInOut 3s ease forwards;
+}
+
+@media (max-width: 768px) {
+    .swipe-indicator {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .morphing-bg,
+    .floating-elements,
+    #constellationCanvas,
+    #cursorTrailCanvas {
+        display: none !important;
+    }
+}
