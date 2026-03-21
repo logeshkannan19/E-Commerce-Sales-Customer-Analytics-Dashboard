@@ -114,13 +114,7 @@
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-ring" id="cursorRing"></div>
     <canvas id="particleCanvas"></canvas>
-    <svg class="noise-svg">
-        <filter id="noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/>
-            <feColorMatrix type="saturate" values="0"/>
-        </filter>
-        <rect width="100%" height="100%" filter="url(#noise)" opacity="0.03"/>
-    </svg>
+    <canvas id="grainCanvas"></canvas>
     <div class="gradient-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
@@ -3114,6 +3108,57 @@
                 }
             }
         });
+        
+        // Animated Grain Overlay
+        (function() {
+            const grainCanvas = document.getElementById('grainCanvas');
+            if (!grainCanvas) return;
+            
+            const ctx = grainCanvas.getContext('2d');
+            const width = window.innerWidth * 2;
+            const height = window.innerHeight * 2;
+            grainCanvas.width = width;
+            grainCanvas.height = height;
+            
+            function generateGrain() {
+                const imageData = ctx.createImageData(width, height);
+                const data = imageData.data;
+                
+                for (let i = 0; i < data.length; i += 4) {
+                    const value = Math.random() * 255;
+                    data[i] = value;
+                    data[i + 1] = value;
+                    data[i + 2] = value;
+                    data[i + 3] = 255;
+                }
+                
+                ctx.putImageData(imageData, 0, 0);
+            }
+            
+            generateGrain();
+            
+            let grainFrame = 0;
+            const maxGrainFrames = 10;
+            
+            function animateGrain() {
+                grainFrame++;
+                if (grainFrame >= maxGrainFrames) {
+                    generateGrain();
+                    grainFrame = 0;
+                }
+                requestAnimationFrame(animateGrain);
+            }
+            
+            animateGrain();
+            
+            window.addEventListener('resize', () => {
+                const w = window.innerWidth * 2;
+                const h = window.innerHeight * 2;
+                grainCanvas.width = w;
+                grainCanvas.height = h;
+                generateGrain();
+            });
+        })();
     </script>
 </body>
 </html>
