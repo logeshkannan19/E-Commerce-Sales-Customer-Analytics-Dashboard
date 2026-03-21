@@ -196,6 +196,18 @@
         <a href="#contact" class="quick-nav-dot" data-section="contact" title="Contact"></a>
     </nav>
     
+    <!-- Spotlight Toggle -->
+    <button class="spotlight-toggle" id="spotlightToggle" title="Toggle spotlight effect (S)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="6"/>
+            <line x1="12" y1="18" x2="12" y2="22"/>
+            <line x1="2" y1="12" x2="6" y2="12"/>
+            <line x1="18" y1="12" x2="22" y2="12"/>
+        </svg>
+    </button>
+    
     <!-- Keyboard Shortcuts Panel -->
     <div class="shortcuts-panel" id="shortcutsPanel">
         <div class="shortcuts-header">
@@ -218,6 +230,10 @@
             <div class="shortcut-item">
                 <kbd>/</kbd>
                 <span>Search</span>
+            </div>
+            <div class="shortcut-item">
+                <kbd>S</kbd>
+                <span>Toggle spotlight</span>
             </div>
             <div class="shortcut-item">
                 <kbd>Esc</kbd>
@@ -3034,6 +3050,70 @@
             localStorage.setItem('swipeShown', 'true');
             setTimeout(() => swipeIndicator.remove(), 3000);
         }
+        
+        // Mouse Spotlight Effect
+        const spotlightToggle = document.getElementById('spotlightToggle');
+        const spotlightContainer = document.createElement('div');
+        spotlightContainer.className = 'spotlight-container';
+        spotlightContainer.innerHTML = `
+            <div class="spotlight-vignette"></div>
+            <div class="spotlight-glow"></div>
+        `;
+        document.body.appendChild(spotlightContainer);
+        
+        let spotlightActive = localStorage.getItem('spotlightActive') === 'true';
+        
+        function updateSpotlight(x, y) {
+            const vignette = spotlightContainer.querySelector('.spotlight-vignette');
+            const glow = spotlightContainer.querySelector('.spotlight-glow');
+            const percentX = (x / window.innerWidth) * 100;
+            const percentY = (y / window.innerHeight) * 100;
+            spotlightContainer.style.setProperty('--mouse-x', `${percentX}%`);
+            spotlightContainer.style.setProperty('--mouse-y', `${percentY}%`);
+        }
+        
+        function toggleSpotlight() {
+            spotlightActive = !spotlightActive;
+            if (spotlightActive) {
+                spotlightContainer.classList.add('active');
+                spotlightToggle.classList.add('active');
+                localStorage.setItem('spotlightActive', 'true');
+            } else {
+                spotlightContainer.classList.remove('active');
+                spotlightToggle.classList.remove('active');
+                localStorage.setItem('spotlightActive', 'false');
+            }
+        }
+        
+        if (spotlightToggle) {
+            spotlightToggle.addEventListener('click', toggleSpotlight);
+            
+            document.addEventListener('mousemove', (e) => {
+                if (spotlightActive) {
+                    updateSpotlight(e.clientX, e.clientY);
+                }
+            });
+            
+            document.addEventListener('mouseleave', () => {
+                if (spotlightActive) {
+                    updateSpotlight(window.innerWidth / 2, window.innerHeight / 2);
+                }
+            });
+            
+            if (spotlightActive) {
+                spotlightContainer.classList.add('active');
+                spotlightToggle.classList.add('active');
+            }
+        }
+        
+        // Keyboard shortcut for spotlight (S key)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 's' || e.key === 'S') {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                    toggleSpotlight();
+                }
+            }
+        });
     </script>
 </body>
 </html>
