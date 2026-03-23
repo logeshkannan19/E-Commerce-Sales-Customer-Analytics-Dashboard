@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Logesh Kannan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000000;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1A1;
+            --gold: #C6A75E;
+            --gold-dim: rgba(198, 167, 94, 0.15);
+            --divider: rgba(255, 255, 255, 0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { opacity: 0; animation: fadeIn 0.8s ease-out forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        
+        .project-card {
+            border: 1px solid var(--divider);
+            background: rgba(255,255,255,0.02);
+            transition: all 0.4s ease;
+        }
+        .project-card:hover {
+            border-color: var(--gold-dim);
+            transform: translateY(-4px);
+        }
+        
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        
+        .gold-text { color: var(--gold); }
+        .badge {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            border: 1px solid var(--gold-dim);
+            padding: 4px 12px;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <nav class="py-8">
+        <div class="container flex justify-between items-center">
+            <a href="/portfolio.html" class="text-lg font-medium hover:text-white transition">Logesh Kannan</a>
+            <div class="flex gap-8 text-sm text-gray-400">
+                <a href="/dropagent/index.html" class="nav-link">Project</a>
+                <a href="/portfolio.html" class="nav-link">About</a>
+                <a href="#" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-20">
+        <div class="fade-in delay-1 mb-16">
+            <span class="badge">Selected Work</span>
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 fade-in delay-2">Projects</h1>
+        <p class="text-xl text-gray-400 max-w-2xl mb-20 fade-in delay-3">
+            Building products that solve real problems. From AI agents to commerce automation.
+        </p>
+
+        <div class="grid gap-8">
+            <!-- DropAgent -->
+            <a href="/dropagent/" class="project-card block p-8 md:p-12 fade-in delay-4">
+                <div class="flex flex-col md:flex-row justify-between md:items-start gap-6">
+                    <div class="flex-1">
+                        <span class="badge mb-4 inline-block">Commerce Automation</span>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">DropAgent</h2>
+                        <p class="text-gray-400 text-lg mb-6 max-w-xl">
+                            Autonomous product discovery and pricing engine. Identifies high-velocity products, generates optimized listings, and deploys directly to Shopify.
+                        </p>
+                        <div class="flex gap-3 text-sm text-gray-500">
+                            <span>React</span>
+                            <span>•</span>
+                            <span>Node.js</span>
+                            <span>•</span>
+                            <span>ML Pipeline</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-4xl font-light text-gray-600">2025</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- More projects can be added here -->
+        </div>
+    </main>
+
+    <footer class="py-12 border-t border-gray-900">
+        <div class="container text-center text-gray-500 text-sm">
+            <p>© 2025 Logesh Kannan. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
