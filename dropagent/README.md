@@ -1,27 +1,36 @@
-# DropAgent
+<div align="center">
+
+# 🚀 DropAgent
 
 **Autonomous product discovery and pricing — built for speed.**
 
-> "DropAgent basically runs my store for me." — Operations Lead, DTC Brand
+</div>
+
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/logeshkannan19/DropAgent/actions)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/logeshkannan19/DropAgent/releases)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/logeshkannan19/DropAgent/blob/main/LICENSE)
+[![Stars](https://img.shields.io/github/stars/logeshkannan19/DropAgent?style=social)](https://github.com/logeshkannan19/DropAgent/stargazers)
+[![Forks](https://img.shields.io/github/forks/logeshkannan19/DropAgent?style=social)](https://github.com/logeshkannan19/DropAgent/network)
 
 ---
 
-## The Problem
+## 📋 Table of Contents
 
-Manual dropshipping is slow, reactive, and inefficient. By the time products are researched, listed, and priced — the opportunity is already gone.
+- [Features](#-features)
+- [Demo](#-demo)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#-usage)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
 
-- 6+ hours per day on manual research
-- Missed trends while you're sleeping
-- Pricing wars you can't keep up with
-- No systematic way to find winners
+---
 
-## The Solution
-
-DropAgent is an autonomous dropshipping agent that discovers, lists, and prices products in real time — eliminating lag between signal and execution.
-
-It continuously identifies high-velocity products, generates optimized listings, and deploys them directly to Shopify — transforming dropshipping from a reactive workflow into a real-time, intelligence-driven engine.
-
-## Key Features
+## ✨ Features
 
 - **Signal Detection** — Real-time monitoring across TikTok, Amazon, AliExpress for emerging trends
 - **Product Scoring** — ML-powered demand velocity and margin potential analysis
@@ -29,150 +38,203 @@ It continuously identifies high-velocity products, generates optimized listings,
 - **Auto-Deploy** — Push live to Shopify in minutes, not hours
 - **Dynamic Pricing** — Real-time competitor tracking with intelligent margin optimization
 - **Full Automation** — Zero manual intervention required after setup
+- **Dashboard Analytics** — Track listings, revenue, and win rates in real-time
 
-## Product Demo
+---
+
+## 🖥️ Demo
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    DropAgent Dashboard                  │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│   📊 Active Listings    42                              │
-│   💰 Today's Revenue    $2,847                          │
-│   ⚡ Listings Today     12                              │
-│   🎯 Win Rate          34%                             │
-│                                                         │
-│   [Trending Products] [Auto-Deploy] [Pricing Engine]    │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                     DropAgent Dashboard                     │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   📊 Active Listings    42    💰 Revenue    $2,847          │
+│   ⚡ Listings Today     12    🎯 Win Rate   34%             │
+│                                                             │
+│   ┌─────────────┐ ┌─────────────┐ ┌─────────────┐           │
+│   │  Signals   │ │  Deploy    │ │  Pricing   │           │
+│   │  Monitor   │ │  Engine    │ │  Engine    │           │
+│   └─────────────┘ └─────────────┘ └─────────────┘           │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Tech Stack
+**Live Demo:** [https://dropagent.io](https://dropagent.io)
+
+---
+
+## 🛠 Tech Stack
 
 | Layer | Technology |
 |-------|------------|
-| Frontend | React, Vite, CSS Modules |
-| API | Node.js, Express |
+| Frontend | React 18, Vite, CSS Modules |
+| Backend | Node.js, Express |
 | Database | PostgreSQL |
 | ML/AI | Python, TensorFlow |
 | Infrastructure | AWS, Docker |
 | CI/CD | GitHub Actions |
+| Hosting | Vercel |
 
-## Architecture
+---
 
-```
-┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│   Signal     │───▶│   Product    │───▶│   Shopify    │
-│   Sources    │    │   Engine     │    │   Deploy     │
-└──────────────┘    └──────────────┘    └──────────────┘
-      │                   │                   │
-      ▼                   ▼                   ▼
-  TikTok             ML Scoring          Live Store
-  Amazon             Demand Analysis     Auto-Pricing
-  AliExpress         Margin Calc         Real-time Sync
-```
+## 📦 Getting Started
 
-### Why This Architecture
+### Prerequisites
 
-- **Microservices** — Each component scales independently (10 → 1M users)
-- **Event-driven** — Signals processed asynchronously, no bottlenecks
-- **ML pipeline** — Isolated for model updates without downtime
-- **Shopify API** — Direct integration, no middleware required
+- Node.js 18+
+- npm or yarn
+- PostgreSQL 14+
+- Docker (optional)
 
-## Quick Start
+### Installation
 
 ```bash
-# Clone the repo
+# Clone the repository
 git clone https://github.com/logeshkannan19/DropAgent.git
 cd DropAgent
 
 # Install dependencies
 npm install
 
-# Start development
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your credentials
+
+# Start development server
 npm run dev
 ```
 
-## Environment Variables
+---
 
-Create a `.env` file in `apps/web/`:
+## 💻 Usage
 
-```env
+### Running the Application
+
+```bash
+# Development
+npm run dev
+
+# Production build
+npm run build
+npm run preview
+```
+
+### Environment Configuration
+
+Create a `.env` file:
+
+```bash
 # Shopify Integration
 SHOPIFY_STORE_URL=your-store.myshopify.com
 SHOPIFY_ACCESS_TOKEN=shpat_xxxxx
-SHOPIFY_API_KEY=xxxxx
-SHOPIFY_API_SECRET=xxxxx
 
 # Database
 DATABASE_URL=postgresql://user:pass@localhost:5432/dropagent
 
-# ML Pipeline
-ML_API_URL=http://localhost:8000
-ML_API_KEY=your-ml-key
-
-# App Config
+# Application
 NODE_ENV=development
 PORT=5173
 ```
 
-## API Endpoints
+### API Examples
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/products` | GET | List all products |
-| `/api/products` | POST | Create new listing |
-| `/api/signals` | GET | Fetch active signals |
-| `/api/pricing/optimize` | POST | Get optimal price |
-| `/api/shopify/sync` | POST | Sync with Shopify |
+```typescript
+// Fetch active products
+const response = await fetch('/api/products');
+const products = await response.json();
 
-## Deployment
-
-### Docker
-
-```bash
-docker build -t dropagent:latest .
-docker run -p 3000:3000 dropagent:latest
+// Create new listing
+const newProduct = await fetch('/api/products', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name: 'Wireless Earbuds Pro',
+    price: 49.99,
+    tags: ['electronics', 'audio']
+  })
+});
 ```
-
-### Vercel (Frontend)
-
-```bash
-cd apps/web
-vercel deploy
-```
-
-### Manual (Production)
-
-```bash
-# Build
-npm run build
-
-# Start
-NODE_ENV=production npm start
-```
-
-## Roadmap
-
-- [ ] **Q1 2025** — Multi-store support (5+ Shopify stores)
-- [ ] **Q2 2025** — Mobile app (iOS/Android)
-- [ ] **Q3 2025** — AI chat interface for strategy queries
-- [ ] **Q4 2025** — European market expansion (localized)
-
-## Contributing
-
-Open to contributions. See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
-
-## License
-
-MIT — see [LICENSE](./LICENSE).
-
-## Contact
-
-- Email: founders@dropagent.io
-- Twitter: @dropagent
-- Discord: [Join the community](https://discord.gg/dropagent)
 
 ---
 
-**Built for operators who move faster than the market.**
+## 📂 Project Structure
+
+```
+📦 DropAgent
+ ┣ 📂 apps
+ ┃ ┣ 📂 web
+ ┃ ┃ ┣ 📂 src
+ ┃ ┃ ┃ ┣ 📂 components
+ ┃ ┃ ┃ ┣ 📂 hooks
+ ┃ ┃ ┃ ┣ 📂 lib
+ ┃ ┃ ┃ ┣ 📂 pages
+ ┃ ┃ ┃ ┗ 📂 styles
+ ┃ ┃ ┣ 📄 index.html
+ ┃ ┃ ┗ 📄 package.json
+ ┃ ┣ 📂 api
+ ┃ ┃ ┣ 📂 src
+ ┃ ┃ ┃ ┣ 📂 controllers
+ ┃ ┃ ┃ ┣ 📂 middleware
+ ┃ ┃ ┃ ┣ 📂 models
+ ┃ ┃ ┃ ┣ 📂 routes
+ ┃ ┃ ┃ ┣ 📂 services
+ ┃ ┃ ┃ ┗ 📂 utils
+ ┃ ┃ ┗ 📄 package.json
+ ┃ ┗ 📂 docs
+ ┣ 📂 infra
+ ┃ ┗ 📂 terraform
+ ┣ 📂 scripts
+ ┣ 📂 .github
+ ┃ ┣ 📂 workflows
+ ┃ ┃ ┗ 📄 ci.yml
+ ┃ ┣ 📂 ISSUE_TEMPLATE
+ ┃ ┗ 📂 PULL_REQUEST_TEMPLATE
+ ┣ 📄 .env.example
+ ┣ 📄 .gitignore
+ ┣ 📄 LICENSE
+ ┣ 📄 README.md
+ ┣ 📄 CONTRIBUTING.md
+ ┣ 📄 CODE_OF_CONDUCT.md
+ ┗ 📄 ARCHITECTURE.md
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) first.
+
+```bash
+# Create a feature branch
+git checkout -b feature/amazing-feature
+
+# Make changes and commit
+git commit -m "feat: add amazing feature"
+
+# Push and create PR
+git push origin feature/amazing-feature
+```
+
+---
+
+## 📜 License
+
+MIT License — see [LICENSE](LICENSE) for details.
+
+---
+
+## 📬 Contact
+
+- **Email:** founders@dropagent.io
+- **GitHub:** [@logeshkannan19](https://github.com/logeshkannan19)
+- **Twitter:** [@dropagent](https://twitter.com/dropagent)
+- **Discord:** [Join Community](https://discord.gg/dropagent)
+
+---
+
+<div align="center">
+
+Made with ❤️ by **Logesh Kannan**
+
+</div>
