@@ -1,0 +1,30 @@
+# E-Commerce Analytics Configuration
+
+# Data paths
+data:
+  raw: data/raw/ecommerce_data.csv
+  processed: data/processed/ecommerce_processed.csv
+  output: data/processed/
+
+# Analysis parameters
+analysis:
+  rfm:
+    quartiles: 5
+    top_customers_percent: 10
+  
+  segmentation:
+    vip_threshold: 13
+    loyal_threshold: 10
+    at_risk_threshold: 5
+
+# Dashboard settings
+dashboard:
+  title: "E-Commerce Analytics Dashboard"
+  theme: "light"
+  page_icon: "📊"
+
+# Logging
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: logs/analytics.log
