@@ -449,14 +449,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📞 Support
+## 📄 License
 
-- Open an issue for bugs or feature requests
-- Check existing issues before creating new ones
-- Star the repository if you find it useful
-
----
-
-<p align="center">
-  Built with ❤️ by <a href="https://github.com/logeshkannan19">Data Engineering Team</a>
-</p>
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
